@@ -1,0 +1,615 @@
+{% load static %}
+{% load util %}
+{% load currency %}
+
+<section id="cab-booking-section" class="cab-booking-section profile-cover">
+    <div class="profile-cover-img cab-booking-section cab-booking-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ heroSectionBackground }})"></div>
+    <div class="container d-flex flex-column text-white justify-content-center position-absolute bottom-0 start-50 translate-middle-x px-4 px-sm-2 px-md-0">
+        <h1 class="fw-medium lh-1 mb-2" style="font-size: 48px;">Start your Journey Now</h1>
+        <p class="p-0 fs-5 mb-4">Choose your Vehicle</p>
+        <ul id="hire-type" class="nav nav-pills mb-2 gap-1" style="line-height: 2.5;">
+            <li class="choice-pill">
+                <a href="#one-way" class="choice-pill-link {% if bookingData.hireType == 'ONE_WAY' %}active{% endif %}" data-bs-toggle="tab">One way</a>
+            </li>
+            <li class="choice-pill">
+                <a href="#return-way" class="choice-pill-link {% if bookingData.hireType == 'RETURN_WAY' %}active{% endif %}" data-bs-toggle="tab">Return way</a>
+            </li>
+            <li class="choice-pill">
+                <a href="#airport-pickup" class="choice-pill-link {% if bookingData.hireType == 'AIRPORT_PICKUP' %}active{% endif %}" data-bs-toggle="tab">Airport Pickup</a>
+            </li>
+            <li class="choice-pill text-dark">
+                <a href="#airport-dropoff" class="choice-pill-link {% if bookingData.hireType == 'AIRPORT_DROPOFF' %}active{% endif %}" data-bs-toggle="tab">Airport Dropoff</a>
+            </li>
+        </ul>
+        <div class="card card-body text-dark mb-5" style="border-radius: 16px;">
+            <div class="d-flex flex-column-reverse flex-lg-column">
+                <div class="d-flex flex-column flex-lg-row gap-4 mb-2">
+                    <div class="d-flex flex-column align-items-start justify-content-center" style="width: max-content; max-width: 100%;">
+                        <input type="hidden" id="selectedVehicle" name="selectedVehicle">
+                        <span class="fs-6 text-nowrap fw-medium mb-1">Select Your Vehicle</span>
+                        <div id="cab-hire-vehicleTypes" class="d-flex flex-row gap-2 scrollbar-h-hidden">
+                            {% for vehicleType in vehicleTypes %}
+                                <div class="d-flex flex-column justify-content-center align-items-center px-2 py-3 vehicleType" style="border-radius: 5px; border: 1px solid #575757; min-width: 100px;" data-vehicle-id="{{ vehicleType.id }}">
+                                    <img src="{{ vehicleType.image.url }}" alt="">
+                                    <span class="text-nowrap">{{ vehicleType.name }}</span>
+                                    <span class="text-nowrap">{{ vehicleType.passengerCapacity }} passengers</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div id="priceContainer" class="w-100 d-flex flex-column align-items-start justify-content-center p-2" style="border-radius: 5px; border: 1px solid #575757;">
+                        <span id="selectedVehicleType" class="fs-6 text-nowrap fw-medium">Selected Vehicle Type</span>
+                        <span id="priceLabel" class="p-2 fs-6 text-nowrap fw-medium" style="background: #EDEDED; border-radius: 5px;">Est: LKR</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column flex-lg-row gap-2 mb-2">
+                    <label class="w-100 form-label text-dark">Pickup Location<span class="text-danger">*</span>
+                        <input type="search" class="form-control input-field" id="pickupLocation" autocomplete="new-search" placeholder="Pickup Location" {% if bookingData.pickupLocation and bookingData.pickupLocationPlaceId %}value="{{ bookingData.pickupLocation }}" data-place-id="{{ bookingData.pickupLocationPlaceId }}" {% endif %} required>
+                    </label>
+                    <label class="w-100 form-label text-dark">Drop Location<span class="text-danger">*</span>
+                        <input type="search" class="form-control input-field" id="dropLocation" autocomplete="new-search" placeholder="Drop Location" {% if bookingData.dropLocation and bookingData.dropLocationPlaceId %}value="{{ bookingData.dropLocation }}" data-place-id="{{ bookingData.dropLocationPlaceId }}" {% endif %} required>
+                    </label>
+                    <label class="w-100 form-label text-dark" for="cab-hire-pickupTime">Pickup Date & Time<span class="text-danger">*</span>
+                        <input id="cab-hire-pickupTime" class="form-control input-field" type="datetime-local" name="datetime-local" value="{{ bookingData.pickupTime|date:'Y-m-d\\TH:i' }}" required>
+                    </label>
+                    <label class="w-100 form-label text-dark">Name<span class="text-danger">*</span>
+                        <input type="text" class="form-control input-field" id="cab-hire-name" placeholder="Name" value="{% if request.user.is_authenticated %}{{ request.user.fullName }}{% endif %}" required>
+                    </label>
+                    <div class="mb-1 w-100 text-dark">
+                        <label for="cab-hire-mobileNumber">Mobile Number<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <select id="cab-hire-countryCode" class="form-control select text-end p-0" data-minimum-results-for-search="Infinity" data-width="auto"  style="background: #F1F0EE; !important; max-width: max-content !important; border: 0 solid transparent !important; border-top-left-radius: 8px; border-bottom-left-radius: 8px;" aria-label="Country Code" required>
+                                {% for country in countries %}
+                                    <option value="{{ country.code }}" data-country-id="{{ country.id }}" {% if request.user.is_authenticated and request.user.countryCode == country.code %}selected{% endif %}>{{ country.emoji }} +{{ country.code }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="text" id="cab-hire-mobileNumber" class="form-control" placeholder="07X XXXX XXX"  style="background: #F1F0EE; !important; border: 0 solid transparent !important; border-top-right-radius: 8px; border-bottom-right-radius: 8px;" inputmode="numeric" {% if request.user.is_authenticated and request.user.mobileNumber %}value="{{ request.user.mobileNumberWithLength }}"{% endif %} required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="book" class="btn btn-primary text-nowrap text-dark fw-medium border-0 rounded-2 fs-6" style="border-radius: 10px !important;">
+                Book now
+            </button>
+        </div>
+    </div>
+</section>
+<div id="bookSuccessModal" class="modal modal-lg fade text-dark" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered mx-auto">
+		<div class="modal-content w-100" style="max-width: 800px;">
+			<div class="modal-body d-flex flex-column">
+				<div class="d-flex flex-row justify-content-between mb-3">
+					<span class="fs-1 fw-medium">Your car is booked</span>
+					<button type="submit" class="btn btn-transparent border-transparent p-0" id="closeBookSuccess">
+						<i class="bi bi-x opacity-50 fs-4"></i>
+					</button>
+				</div>
+				<div class="d-flex flex-column flex-md-row justify-content-between mb-2">
+					<div class="d-flex flex-row">
+						<i class="bi bi-check-circle text-success me-2" style="font-size: 32px;"></i>
+						<div class="d-flex flex-column">
+							<span class="fs-base fw-semibold" id="bookSuccessBookId"></span>
+							<span>
+								<span class="me-2" style="font-size: 12px;">Vehicle Type</span>
+								<span class="fw-semibold" style="font-size: 12px;" id="bookSuccessVehicleType"></span>
+							</span>
+							<div class="d-flex flex-row">
+								<span class="me-2" style="font-size: 12px;">Trip</span>
+								<div class="d-flex flex-column fw-semibold" style="font-size: 12px;">
+                                    <span id="bookSuccessFrom">From - </span>
+                                    <span id="bookSuccessTo">To - </span>
+                                </div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<span class="fs-4">Total Price:</span>
+						<span class="fw-semibold fs-4" id="bookSuccessPriceLabel"></span>
+					</div>
+				</div>
+				<div class="d-flex flex-column flex-sm-row justify-content-end gap-2">
+					<button class="btn btn-outline-dark nav-item navbar-left text-nowrap fw-semibold rounded-3" name="cancelBooking" id="cancelBooking">
+						Cancel Booking
+					</button>
+					<button class="btn btn-dark nav-item navbar-left text-nowrap text-light fw-semibold rounded-3" name="viewBooking" id="viewBooking">
+						View booking
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script nonce="{{ nonce }}">
+    document.addEventListener('DOMContentLoaded', function() {
+		const CMBName = 'Bandaranaike International Airport (CMB), Airport and Aviation Services (Sri Lanka) (Private) Limited, Canada Friendship Rd, Katunayake, Sri Lanka';
+		const CMBPlaceId = 'ChIJXS3yNbfv4joRN4uCAyFwvW4'
+
+        // Function to fetch places from the API based on the user's query
+        async function fetchPlaces(query) {
+            try {
+                const response = await fetch(`/api/v1/place/${query}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                });
+                 const data = await response.json();
+                return data.map(place => ({ value: place.name, placeId: place.placeId }));
+            } catch (error) {
+                console.error('Error fetching places:', error);
+                return [];
+            }
+        }
+
+        // Initialize autoComplete
+        new autoComplete({
+            selector: "#pickupLocation",
+            data: {
+                src: async (query) => {
+                    if (query.length < 1) {
+                        document.querySelector("#pickupLocation").removeAttribute('data-place-id');
+                        return []; // Don't query the API for very short inputs
+                    }
+                    return await fetchPlaces(query); // Fetch matching places from the API
+                },
+                keys: ["value"], // Adjust if the API response structure differs
+            },
+            threshold: 1, // Start searching after 1 character
+            searchEngine: 'loose', // Use strict matching
+            filter: (results) => results, // Don't filter the results
+            debounce: 0, // Wait 300ms before querying the API
+            resultsList: {
+                element: (list, data) => {
+                    if (data.matches.length === 0) {
+                        list.innerHTML = '<li class="pe-none py-1">No results found</li>';
+                    }
+                },
+                noResults: true,
+                maxResults: 10, // Limit results to 10
+            },
+            events: {
+                input: {
+                    selection: (event) => {
+                        const selection = event.detail.selection.value;
+                        document.querySelector("#pickupLocation").value = selection.value;
+                        document.querySelector("#pickupLocation").setAttribute('data-place-id', selection.placeId);
+                        let url = new URL(window.location.href);
+                        url.searchParams.set('pickupLocation', selection.value);
+                        url.searchParams.set('pickupLocationPlaceId', selection.placeId);
+                        window.history.pushState({}, '', url);
+                        updatePrice();
+                    },
+                },
+            },
+        });
+        new autoComplete({
+            selector: "#dropLocation",
+            data: {
+                src: async (query) => {
+                    if (query.length < 1) {
+                        document.querySelector("#dropLocation").removeAttribute('data-place-id');
+                        return []; // Don't query the API for very short inputs
+                    }
+                    return await fetchPlaces(query); // Fetch matching places from the API
+                },
+                keys: ["value"], // Adjust if the API response structure differs
+            },
+            threshold: 1, // Start searching after 1 character
+            searchEngine: 'loose', // Use strict matching
+            filter: (results) => results, // Don't filter the results
+            debounce: 0, // Wait 300ms before querying the API
+            resultsList: {
+                element: (list, data) => {
+                    if (data.matches.length === 0) {
+                        list.innerHTML = '<li class="pe-none py-1">No results found</li>';
+                    }
+                },
+                noResults: true,
+                maxResults: 10, // Limit results to 10
+            },
+            events: {
+                input: {
+                    selection: (event) => {
+                        const selection = event.detail.selection.value;
+                        document.querySelector("#dropLocation").value = selection.value;
+                        document.querySelector("#dropLocation").setAttribute('data-place-id', selection.placeId);
+                        let url = new URL(window.location.href);
+                        url.searchParams.set('dropLocation', selection.value);
+                        url.searchParams.set('dropLocationPlaceId', selection.placeId);
+                        window.history.pushState({}, '', url);
+                        updatePrice();
+                    },
+                },
+            },
+        });
+
+        const vehicleElements = document.querySelectorAll('.vehicleType');
+        const selectedVehicleInput = document.getElementById('selectedVehicle');
+
+        vehicleElements.forEach(vehicle => {
+            vehicle.addEventListener('click', function () {
+                vehicleElements.forEach(v => v.classList.remove('active'));
+                this.classList.add('active');
+                selectedVehicleInput.value = this.getAttribute('data-vehicle-id');
+                let selectedVehicle = document.querySelector('#selectedVehicle');
+                selectedVehicle.value = vehicle.getAttribute('data-vehicle-id');
+                let url = new URL(window.location.href);
+                url.searchParams.set('selectedVehicle', vehicle.getAttribute('data-vehicle-id'));
+                window.history.pushState({}, '', url);
+                updatePrice();
+            });
+        });
+
+        {% if bookingData.selectedVehicle %}
+            document.querySelector(`.vehicleType[data-vehicle-id="{{ bookingData.selectedVehicle }}"]`).click();
+        {% endif %}
+
+        let hireTypes = document.querySelectorAll('#hire-type');
+        hireTypes.forEach(hireType => {
+            hireType.addEventListener('click', () => {
+                let url = new URL(window.location.href);
+                url.searchParams.set('hireType', document.querySelector('.choice-pill-link.active').getAttribute('href').replace('#', '').replace('-', '_').toUpperCase());
+                window.history.pushState({}, '', url);
+
+				let pickupLocation = document.querySelector("#pickupLocation");
+				let dropLocation = document.querySelector("#dropLocation");
+
+				let bookingType = document.querySelector('.choice-pill-link.active').getAttribute('href').replace('#', '').replace('-', '_').toUpperCase();
+				if (bookingType === 'AIRPORT_PICKUP') {
+					pickupLocation.value = CMBName;
+					pickupLocation.setAttribute('data-place-id', CMBPlaceId);
+					pickupLocation.disabled = true;
+					dropLocation.disabled = false;
+					if (dropLocation.getAttribute('data-place-id') === CMBPlaceId) {
+						dropLocation.value = '';
+						dropLocation.removeAttribute('data-place-id');
+					}
+				} else if (bookingType === 'AIRPORT_DROPOFF') {
+					dropLocation.value = CMBName;
+					dropLocation.setAttribute('data-place-id', CMBPlaceId);
+					dropLocation.disabled = true;
+					pickupLocation.disabled = false;
+					if (pickupLocation.getAttribute('data-place-id') === CMBPlaceId) {
+						pickupLocation.value = '';
+						pickupLocation.removeAttribute('data-place-id');
+					}
+				} else {
+					if (pickupLocation.getAttribute('data-place-id') === CMBPlaceId) {
+						pickupLocation.value = '';
+						pickupLocation.removeAttribute('data-place-id');
+					}
+					if (dropLocation.getAttribute('data-place-id') === CMBPlaceId) {
+						dropLocation.value = '';
+						dropLocation.removeAttribute('data-place-id');
+					}
+					pickupLocation.disabled = false;
+					dropLocation.disabled = false;
+				}
+                updatePrice();
+            });
+        });
+
+		{% if bookingData.hireType %}
+			{% if bookingData.hireType == 'ONE_WAY' %}
+				document.querySelector('.choice-pill-link[href="#one-way"]').click();
+			{% elif bookingData.hireType == 'RETURN_WAY' %}
+				document.querySelector('.choice-pill-link[href="#return-way"]').click();
+			{% elif bookingData.hireType == 'AIRPORT_PICKUP' %}
+				document.querySelector('.choice-pill-link[href="#airport-pickup"]').click();
+			{% elif bookingData.hireType == 'AIRPORT_DROPOFF' %}
+				document.querySelector('.choice-pill-link[href="#airport-dropoff"]').click();
+			{% endif %}
+		{% endif %}
+
+        let selectedVehicleType = document.querySelector('#selectedVehicleType');
+        let priceLabel = document.querySelector('#priceLabel');
+        function updatePrice() {
+            try {
+                let selectedVehicle = document.querySelector('#selectedVehicle').value;
+                let vehicleType = document.querySelector(`.vehicleType[data-vehicle-id="${selectedVehicle}"]`);
+                let pickupLocationPlaceId = document.querySelector("#pickupLocation").getAttribute('data-place-id');
+                let dropLocationPlaceId = document.querySelector("#dropLocation").getAttribute('data-place-id');
+                if (vehicleType && pickupLocationPlaceId && dropLocationPlaceId) {
+                    selectedVehicleType.innerText = vehicleType.querySelector('span').innerText;
+                    let data = {
+                        vehicleType: selectedVehicle,
+                        bookingType: document.querySelector('.choice-pill-link.active').getAttribute('href').replace('#', '').replace('-', '_').toUpperCase(),
+                        pickupLocationPlaceId: pickupLocationPlaceId,
+                        dropLocationPlaceId: dropLocationPlaceId,
+                    }
+                    let pickupTime = document.querySelector("#cab-hire-pickupTime").value;
+                    if (pickupTime && new Date(pickupTime) > new Date()) {
+                        data.pickupTime = getPickupTime();
+                    }
+
+                    if (!document.querySelector('#book').classList.contains('disabled')) { document.querySelector('#book').classList.add('disabled'); }
+                    fetch("{% url 'api/v1/cab-hire/generate-price' %}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                        body: JSON.stringify(data),
+                    }).then(response => {
+                        response.json().then(data => {
+                            if (response.ok) {
+                                priceLabel.innerText = `Est: ${UTIL.formatCurrency(data.price)} LKR`;
+                            } else {
+                                priceLabel.innerText = `Est: 0 LKR`;
+                            }
+                        });
+                    }).catch(error => {
+                        console.error('Error updating price:', error);
+                        priceLabel.innerText = `Est: 0 LKR`;
+                    }).finally(() => {
+                        if (document.querySelector('#book').classList.contains('disabled')) { document.querySelector('#book').classList.remove('disabled'); }
+                    });
+                } else {
+                    priceLabel.innerText = `Est: 0 LKR`;
+                }
+            } catch (e) {}
+        }
+
+        function book() {
+            {% if not request.user.is_authenticated %}
+
+            (new UTIL.Toast().ok(
+                'Please login to book the rental',
+                'Login Required',
+                'warning',
+                'Login',
+            )).then(() => {
+                $('#loginModal').modal('show');
+            });
+
+			{% else %}
+            let bookType = document.querySelector('.choice-pill-link.active').getAttribute('href').replace('#', '').replace('-', '_').toUpperCase();
+
+            let pickupLocation = document.querySelector("#pickupLocation").value;
+            let pickupLocationPlaceId = document.querySelector("#pickupLocation").getAttribute('data-place-id');
+            if (!pickupLocation || !pickupLocationPlaceId) {
+                new UTIL.Toast().ok('Please select a pickup location', 'Warning', 'warning');
+                return;
+            }
+
+            let dropLocation = document.querySelector("#dropLocation").value;
+            let dropLocationPlaceId = document.querySelector("#dropLocation").getAttribute('data-place-id');
+            if (!dropLocation || !dropLocationPlaceId) {
+                new UTIL.Toast().ok('Please select a drop location', 'Warning', 'warning');
+                return;
+            }
+
+            let pickupTime = document.querySelector("#cab-hire-pickupTime").value;
+            if (!pickupTime || new Date(pickupTime) < new Date()) {
+                new UTIL.Toast().ok('Please select a valid pickup time', 'Warning', 'warning');
+                return;
+            }
+
+            let name = document.querySelector("#cab-hire-name").value;
+            if (!name) {
+                new UTIL.Toast().ok('Please enter your name', 'Warning', 'warning');
+                return;
+            }
+
+            let countryCode = document.querySelector("#cab-hire-countryCode").value;
+            let mobileNumber = document.querySelector("#cab-hire-mobileNumber").value;
+            if (!mobileNumber) {
+                new UTIL.Toast().ok('Please enter your mobile number', 'Warning', 'warning');
+                return;
+            }
+
+            let selectedVehicle = document.querySelector('#selectedVehicle').value;
+            if (!selectedVehicle) {
+                new UTIL.Toast().ok('Please select a vehicle type', 'Warning', 'warning');
+                return;
+            }
+
+            let data = {
+                bookingType: bookType,
+                pickupLocationPlaceId: pickupLocationPlaceId,
+                dropLocationPlaceId: dropLocationPlaceId,
+                pickupTime: getPickupTime(),
+                name: name,
+                countryCode: countryCode,
+                mobileNumber: mobileNumber,
+                vehicleType: selectedVehicle
+            };
+
+            if (!document.querySelector('#book').classList.contains('disabled')) { document.querySelector('#book').classList.add('disabled'); }
+            fetch("{% url 'api/v1/cab-hire/book' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify(data),
+            }).then(response => {
+                response.json().then(data => {
+                    if (response.ok) {
+                        $('#bookSuccessBookId').text(`Booking ID: #CH${String(data[0].id).padStart(6, '0')}`);
+                        $('#bookSuccessVehicleType').text(document.querySelector('#selectedVehicleType').innerText);
+                        $('#bookSuccessFrom').text(`From: ${pickupLocation}`);
+                        $('#bookSuccessTo').text(`To: ${dropLocation}`);
+                        $('#bookSuccessPriceLabel').text($('#priceLabel').text());
+                        $('#cancelBooking').val(data[0].id);
+                        $('#viewBooking').val(data[0].id);
+                        clearForm();
+                        $('#bookSuccessModal').modal('show');
+                    } else {
+                        let result = Object.values(data)[0];
+						let message;
+						if (typeof result !== 'string') {
+							message = result[0];
+						} else {
+							message = result;
+						}
+
+						new UTIL.Toast().ok(
+							message,
+							title="Booking Failed",
+							icon="warning",
+							confirmButtonText="OK",
+							confirmButtonClass="btn btn-primary"
+						);
+                    }
+                });
+            }).catch(error => {
+                new UTIL.Toast().ok(
+					"Due to an unexpected failure, failed to book the car. Please try again later.",
+					title="Booking Failed",
+					icon="warning",
+					confirmButtonText="OK",
+					confirmButtonClass="btn btn-primary"
+				);
+            }).finally(() => {
+                if (document.querySelector('#book').classList.contains('disabled')) { document.querySelector('#book').classList.remove('disabled'); }
+            });
+            {% endif %}
+        }
+
+        document.querySelector('#book').addEventListener('click', book);
+
+        {% if not request.user.is_authenticated or not request.user.mobileNumber %}
+            fetch("{% url 'api/v1/auth/country' %}", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            }).then(response => {
+                response.json().then(data => {
+                    let countryCodeId = data[0].code;
+                    $('#cab-hire-countryCode').val(countryCodeId).trigger('change');
+                });
+            });
+        {% endif %}
+
+        $('#cab-hire-name').on('input', () => {
+			localStorage.setItem('fullName', UTIL.encode($('#cab-hire-name').value));
+		});
+		$('#cab-hire-mobileNumber').on('input', () => {
+            console.log(UTIL.encode($('#cab-hire-mobileNumber').value));
+			localStorage.setItem('mobileNumber', UTIL.encode($('#cab-hire-mobileNumber').value));
+		});
+        $('#cab-hire-pickupTime').on('input', () => {
+            let pickupTime = $('#cab-hire-pickupTime')[0].value;
+            if (pickupTime && new Date(pickupTime) > new Date()) {
+                let url = new URL(window.location.href);
+                url.searchParams.set('pickupTime', pickupTime);
+                window.history.pushState({}, '', url);
+            }
+            updatePrice();
+        });
+
+        thread(() => {
+			if (localStorage.getItem('fullName') && !$('#cab-hire-name').value) {
+				$('#cab-hire-name').value = UTIL.decode(localStorage.getItem('fullName'));
+			}
+			if (localStorage.getItem('mobileNumber') && !$('#cab-hire-mobileNumber').value) {
+                console.log(UTIL.decode(localStorage.getItem('mobileNumber')));
+				$('#cab-hire-mobileNumber').val(UTIL.decode(localStorage.getItem('mobileNumber')));
+			}
+			updatePrice();
+		});
+
+        function getPickupTime() {
+            let pickupTime = $('#cab-hire-pickupTime')[0].value;
+            if (pickupTime && new Date(pickupTime) > new Date()) {
+                let time = new Date(pickupTime);
+                return time.toISOString();
+            }
+            return null;
+        }
+
+        function clearForm() {
+            document.querySelector("#pickupLocation").value = '';
+            document.querySelector("#pickupLocation").removeAttribute('data-place-id');
+            document.querySelector("#dropLocation").value = '';
+            document.querySelector("#dropLocation").removeAttribute('data-place-id');
+            document.querySelector("#cab-hire-pickupTime").value = '';
+            document.querySelector("#cab-hire-mobileNumber").value = '';
+            document.querySelector("#selectedVehicle").value = '';
+            updatePrice();
+            let url = new URL(window.location.href);
+            url.searchParams.delete('pickupLocation');
+            url.searchParams.delete('pickupLocationPlaceId');
+            url.searchParams.delete('dropLocation');
+            url.searchParams.delete('dropLocationPlaceId');
+            url.searchParams.delete('pickupTime');
+            url.searchParams.delete('selectedVehicle');
+            url.searchParams.delete('hireType');
+            window.history.pushState({}, '', url);
+        }
+
+        function cancelBooking() {
+			new UTIL.Toast().okCancel(
+				'Are you sure you want to cancel the booking?',
+				'Cancel Booking',
+				'warning',
+				'Yes, Cancel',
+				'No, Keep It'
+			).then((result) => {
+				if (result.isConfirmed) {
+					let bookingId = $('#cancelBooking').val();
+					fetch(`{{ request.scheme }}://{{ request.get_host }}/api/v1/cab-hire/${bookingId}/cancel`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-CSRFToken': '{{ csrf_token }}'
+						},
+						body: JSON.stringify({})
+					}).then(response => {
+						response.json().then(data => {
+							if (response.ok) {
+								new UTIL.Toast().ok(
+									'Booking has been successfully cancelled',
+									'Booking Cancelled',
+									'success'
+								);
+								$('#bookSuccessModal').modal('hide');
+							} else {
+								let result = Object.values(data)[0];
+								let message;
+								if (typeof result !== 'string') {
+									message = result[0];
+								} else {
+									message = result;
+								}
+
+								new UTIL.Toast().ok(
+									message,
+									title="Cancellation Failed",
+									icon="warning",
+									confirmButtonText="OK",
+									confirmButtonClass="btn btn-primary"
+								);
+							}
+						});
+					}).catch(error => {
+						new UTIL.Toast().ok(
+							"Due to an unexpected failure, failed to cancel the booking. Please try again later.",
+							title="Cancellation Failed",
+							icon="warning",
+							confirmButtonText="OK",
+							confirmButtonClass="btn btn-primary"
+						);
+					});
+				}
+			});
+		}
+
+		function viewBooking() {
+			let bookingId = $('#viewBooking').val();
+			window.location.href = `{% url 'history' %}cab-hire/${bookingId}`;
+		}
+
+		$('#cancelBooking').on('click', cancelBooking);
+		$('#viewBooking').on('click', viewBooking);
+
+        document.getElementById('closeBookSuccess').addEventListener('click', () => {
+			console.log('closeBookSuccess');
+			$('#bookSuccessModal').modal('hide');
+		});
+    });
+</script>

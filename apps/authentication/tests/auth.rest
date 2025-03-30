@@ -1,0 +1,75 @@
+
+# auth
+POST {{apiURL}}auth/request-otp
+Content-Type: application/json
+
+{
+    "country": "166",
+    "mobileNumber": "0775450236"
+}
+###
+
+# auth
+POST {{apiURL}}auth/request-email
+Content-Type: application/json
+
+{
+    "email": "sasindusulochana99@gmail.com"
+}
+###
+
+# auth/register
+POST {{apiURL}}auth/register
+Content-Type: application/json
+
+{
+    "countryCode": "94",
+    "mobileNumber": "775450239",
+    "firstName": "Sasindu",
+    "lastName": "Wijethunga"
+}
+###
+
+# auth/login
+POST {{apiURL}}auth/verify-otp
+Content-Type: application/json
+
+{
+    "country": "166",
+    "mobileNumber": "0775450236",
+    "passcode": "111111"
+}
+###
+
+# auth/login
+POST {{apiURL}}auth/verify-email
+Content-Type: application/json
+
+{
+    "email": "sasindusulochana99@gmail.com",
+    "passcode": "552123"
+}
+###
+
+# auth/profile
+GET {{apiURL}}auth/profile
+Content-Type: application/json
+
+{}
+###
+
+# auth/role
+GET {{apiURL}}auth/role
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{}
+###
+
+# auth/token/refresh
+POST {{apiURL}}auth/token/refresh
+Content-Type: application/json
+
+{
+    "refresh": "{{refreshToken}}"
+}

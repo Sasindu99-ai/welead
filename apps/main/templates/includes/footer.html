@@ -1,0 +1,155 @@
+{% load static %}
+{% load files %}
+{% load socialaccount %}
+{% if R.data.footer.enabled == True %}
+<style>
+.footer-left {
+	max-width: 360px;
+}
+
+.footer-description {
+	max-width: none;
+}
+
+/* md */
+@media (max-width: 768px) {
+	.footer-left {
+		max-width: none;
+	}
+
+	.footer-description {
+		max-width: 300px;
+	}
+}
+</style>
+<footer class="footer bg-light d-flex flex-column justify-content-center align-items-center" style="line-height: 1.5; font-weight: 300;">
+	<div class="container d-flex flex-column flex-md-row w-100 mb-3 mx-auto mx-md-0 align-items-center gap-1 gap-sm-2 gap-md-3 gap-lg-5">
+		<div class="d-flex flex-column mt-4 align-items-center align-items-md-start w-100 footer-left">
+			<img src="{% static R.data.settings.logo %}" width="150" alt="Logo">
+			<p class="text-dark mt-3" style="text-align: justify;">“We Lead – Career Skills Society” is the student arm of the Career Guidance Unit at the University of Peradeniya. Our mission is to empower undergraduates to become professionals by creating and fostering opportunities to enhance their career skills and competencies, with industrial and international exposure. </p>
+			<div class="mt-3 w-100 footer-description">
+				<div class="input-group">
+					<input type="text" class="form-control" name="email" placeholder="Email Address" aria-label="Email Address" required>
+					<button id="subscribe" class="btn btn-primary text-dark border-0" type="button" name="subscribe" value="true" title="Subscribe" data-label="Subscribe" onclick="API.subscribe('subscribe-form')"><i class="ph ph-bell"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex flex-column flex-md-row justify-content-around text-dark mt-4 w-100 text-center text-md-start ms-0 ms-sm-2 ms-md-5">
+			<div class="d-flex flex-column mb-3 w-100">
+				<p class="fs-base fw-medium mb-2">Quick Links</p>
+				<div class="d-flex flex-column gap-1">
+					<a class="link-dark" href="#">Home</a>
+					<a class="link-dark" href="#">About Us</a>
+					<a class="link-dark" href="#">Programs</a>
+					<a class="link-dark" href="#">FAQ</a>
+					<a class="link-dark" href="#">Contact</a>
+				</div>
+			</div>
+			<div class="d-flex flex-column mb-3 w-100">
+				<p class="fs-base fw-medium mb-2">Society</p>
+				<div class="d-flex flex-column gap-1">
+					<a class="link-dark" href="#">Our Team</a>
+					<a class="link-dark" href="#">Support</a>
+					<a class="link-dark" href="#">Privacy Policy</a>
+					<a class="link-dark" href="#">Terms & Conditions</a>
+				</div>
+			</div>
+			<div class="d-flex flex-column mb-3 align-items-center w-100">
+				<p class="fs-base fw-medium mb-2">Join our community</p>
+				<div class="d-flex flex-row w-100 justify-content-between px-5 px-md-2 footer-description">
+					<a href="#" class="nav-link"><i class="bi bi-twitter-x fs-6"></i></a>
+					<a href="#" class="nav-link"><i class="bi bi-linkedin fs-6"></i></a>
+					<a href="#" class="nav-link"><i class="bi bi-youtube fs-6"></i></a>
+					<a href="#" class="nav-link"><i class="bi bi-facebook fs-6"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container text-dark mb-4 text-center px-2 d-flex w-100 flex-column flex-md-row justify-content-between">
+		<span>
+		© {% now "Y" %} We Lead. All rights reserved
+		</span>
+		<span>Designed & Developed by <a href="/team/developers" class="link-primary">We Lead</a></span>
+	</div>
+	<script nonce="{{ nonce }}">
+		document.addEventListener('DOMContentLoaded', function() {
+
+		});
+	</script>
+</footer>
+{% endif %}
+<script nonce="{{ nonce }}">
+	window.ROOTPATH = "{% static '../' %}";
+	window.STATICS = "{% static '' %}";
+</script>
+{# JS #}
+{% js R.files.jQuery %}
+{% js R.files.slim %}
+{% js R.files.popper %}
+{% js R.files.bootstrap %}
+{% js R.files.bootstrapBundle %}
+{% js R.files.main %}
+{% js R.files.style %}
+{% js R.files.loader %}
+{% js R.files.models 'module' %}
+{% js R.files.api 'module' %}
+{% js R.files.util 'module' %}
+{# Plugins #}
+{% js R.files.moment %}
+{% js R.files.datePicker %}
+{% js R.files.dateRangePicker %}
+{% js R.files.steps %}
+{% js R.files.validation %}
+{% js R.files.autoComplete %}
+{% js R.files.select2 %}
+{% js R.files.sweetAlert %}
+{% js R.files.cryptojs %}
+{% js R.files.noUiSlider %}
+{% js R.files.swiper %}
+<script nonce="{{ nonce }}">
+	{% if not DEBUG %}
+		// Disable context menu
+		document.addEventListener('contextmenu', function (e) {
+			e.preventDefault();
+		});
+
+		// Disable developer mode
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'F12') {
+				e.preventDefault();
+			}
+		});
+
+		// Detect Web Driver
+		const isWebDriver = navigator.webdriver;
+		if (isWebDriver) {
+			window.location.assign("{{ HOST }}/404")
+		}
+	{% endif %}
+</script>
+<script nonce="{{ nonce }}">
+    function onUtil(func) {
+        if (typeof UTIL !== "undefined" && UTIL !== null && UTIL !== false) {
+            func.call()
+        } else {
+            setTimeout(() => onUtil(func), 100);
+        }
+    }
+
+    MAX_ATTEMPTS = 20;
+    threads = {};
+    function thread(func, delay=100) {
+        if (func != null && typeof delay === "number") {
+            if (threads.hasOwnProperty(func)) threads[func] += 1
+            else threads[func] = 1
+            try {
+                func.call();
+            } catch (e) {
+				console.error(e); // TODO: remove on Production
+				if (threads[func] < MAX_ATTEMPTS) {
+					setTimeout(() => thread(func, delay), delay);
+				}
+			}
+        }
+    }
+</script>

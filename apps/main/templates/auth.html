@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load currency %}
+{% load util %}
+
+{% block content %}
+<div class="content d-flex justify-content-center align-items-center">
+	<form class="login-form needs-validation" action="" method="POST">
+		{% csrf_token %}
+		<div class="card mb-0">
+			<div class="card-body">
+				<div class="text-center mb-3">
+					<div class="d-inline-flex align-items-center justify-content-center mb-4 mt-2">
+						<img src="{% static R.images.vip.path %}" class="h-72px rounded-2" alt="">
+					</div>
+					<h5 class="mb-0">Login to your account</h5>
+					<span class="d-block text-muted">Enter your credentials below</span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Country Code<span class="text-danger">*</span></label>
+					<div class="form-control-feedback form-control-feedback-start">
+						<input type="search" class="form-control" id="countryCode" autocomplete="new-search" placeholder="Country Code" aria-label="Country Code">
+						<div class="form-control-feedback-icon">
+							<i class="bi bi-globe-central-south-asia text-muted"></i>
+						</div>
+					</div>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Mobile Number<span class="text-danger">*</span></label>
+					<div class="form-control-feedback form-control-feedback-start">
+						<input type="tel" name="mobileNumber" class="form-control {% if errors.mobileNumber is not None %}is-invalid{% endif %}" placeholder="07X-XXXXXXX" aria-label="Mobile Number" title="Mobile Number">
+						<div class="form-control-feedback-icon" style="z-index: 0;">
+							<i class="bi bi-telephone-fill text-muted"></i>
+						</div>
+						<div class="invalid-feedback">{{ errors.mobileNumber }}</div>
+					</div>
+				</div>
+				<div class="d-flex align-items-center mb-3">
+					<label class="form-check">
+						<input type="checkbox" name="remember" class="form-check-input" checked>
+						<span class="form-check-label">Remember</span>
+					</label>
+				</div>
+				<div class="mb-3">
+					<button type="submit" class="btn btn-primary w-100">Sign in</button>
+				</div>
+				<div class="text-center text-muted content-divider mb-3">
+					<span class="px-2">or sign in with</span>
+				</div>
+				<div class="text-center mb-3">
+					<button type="button" class="btn btn-outline-primary btn-icon rounded-pill border-width-2"><i class="bi bi-google" style="width: 22px;"></i></button>
+					<button type="button" class="btn btn-outline-pink btn-icon rounded-pill border-width-2 ms-2"><i class="bi bi-apple" style="width: 22px;"></i></button>
+				</div>
+				<span class="form-text text-center text-muted">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}
+{% block js %}
+	{{ block.super }}
+	<script nonce="{{ nonce }}">
+		document.addEventListener('DOMContentLoaded', () => {
+			const countryCodes = {{ R.data.countryCodes|jsonify|safe }};
+			let countryCodeList = [];
+			for (let country in countryCodes) {
+				countryCodeList.push(`${country} (+${countryCodes[country]})`);
+			}
+
+
+			const countryCode = new autoComplete({
+				selector: "#countryCode",
+				data: {
+					src: countryCodeList,
+				},
+				resultItem: {
+					highlight: true
+				},
+				resultsList: {
+					noResults: true,
+					maxResults: 15,
+					tabSelect: true
+				},
+				events: {
+					input: {
+						selection: function(event){
+							const selection = event.detail.selection.value;
+							countryCode.input.value = selection;
+						}
+					},
+					focus() {
+                        const inputValue = countryCode.input.value;
+                        if (inputValue.length) countryCode.start();
+                    }
+				}
+			});
+		});
+	</script>
+{% endblock %}

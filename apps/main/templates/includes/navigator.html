@@ -1,0 +1,140 @@
+{% load static %}
+{% if R.data.navigator.enabled == True %}
+	{% if R.data.navigator.navType == 1 %}
+		<style>
+			.apps-dropdown {
+				top: 30px;
+				left: -150px !important;
+			}
+
+			@media (max-width: 576px) {
+				.apps-dropdown {
+					top: 30px;
+					left: -200px !important;
+				}
+			}
+		</style>
+		<nav class="navbar navbar-expand-lg navbar-primary bg-primary text-white w-100 py-0 mx-auto" style="--gutter-x: 1.25rem; --gutter-y: 0; padding-right: calc(var(--gutter-x)* 1.6); padding-left: calc(var(--gutter-x)* 1.6); height: 30px;">
+			<div class="container d-flex flex-row justify-content-end fw-light" style="font-size: 11px;">
+				<ul class="align-items-center d-flex flex-row gap-2 justify-content-center navbar-nav" style="height: 30px;">
+					{% if R.data.settings.email %}
+					<li class="nav-item">
+						<a href="mailto:{{ R.data.settings.email }}" class="nav-link text-white px-1 text-nowrap">
+							<span class="d-none d-sm-block">EMAIL : </span>{{ R.data.settings.email }}
+						</a>
+					</li>
+					{% endif %}
+					{% if R.data.settings.mobileNumber %}
+					<li class="nav-item">
+						<a href="tel:{{ R.data.settings.mobileNumber }}" class="nav-link text-white px-1 text-nowrap">
+							<span class="d-none d-sm-block">HOTLINE : </span>{{ R.data.settings.mobileNumber }}
+						</a>
+					</li>
+					{% endif %}
+					<li class="nav-item nav-item-dropdown-lg dropdown">
+						<a href="#" class="nav-link text-white d-flex flex-row gap-2 px-1" data-bs-toggle="dropdown">
+							<i class="bi bi-grid-3x3-gap-fill"></i>
+							<span class="d-none d-sm-block">WeLead</span>
+						</a>
+						<div class="apps-dropdown dropdown-menu dropdown-menu-scrollable-sm wmin-lg-200 p-0" style="left: -200px !important;">
+							<div class="d-flex flex-column">
+								<div class="d-flex flex-row p-1">
+									<a href="https://www.pdn.ac.lk/bliittop423/" class="dropdown-item p-2 rounded-2" target="_blank">
+										<img width="160" src="https://www.pdn.ac.lk/wp-content/uploads/2022/06/University_of_Peradeniya_crest-1.png" class="attachment-full size-full" alt="" srcset="https://www.pdn.ac.lk/wp-content/uploads/2022/06/University_of_Peradeniya_crest-1.png 500w, https://www.pdn.ac.lk/wp-content/uploads/2022/06/University_of_Peradeniya_crest-1-300x76.png 300w, https://www.pdn.ac.lk/wp-content/uploads/2022/06/elementor/thumbs/University_of_Peradeniya_crest-1-px3reexsxlw9vzc198cr5vebck0o45j0ees9cwwiy0.png 400w" sizes="(max-width: 500px) 100vw, 500px">
+									</a>
+								</div>
+								<div class="d-flex flex-row p-1">
+									<a href="https://site.pdn.ac.lk/cgu/" class="dropdown-item p-2 rounded-2" target="_blank">
+										<div style="display:flex; width: 160px;">
+											<img src="https://site.pdn.ac.lk/images/logo/University_of_Peradeniya_crest.png" width="40px" height="40px" alt="Career Guidance Unit">
+											<div class="d-flex flex-column px-1 fs-sm lh-1 justify-content-center fw-semibold" style="color: #9d170e;">
+											  <span>Career Guidance Unit</span>
+											  <span>University of Peradeniya </span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="d-flex flex-row p-1">
+									<a href="https://lk.usembassy.gov/american-corner-kandy/" class="dropdown-item p-2 d-flex flex-row rounded-2" target="_blank">
+										<img alt="U.S. Embassy Colombo Seal" title="use-colombo-seal" src="https://lk.usembassy.gov/wp-content/uploads/sites/156/2024/01/use-colombo-seal-e1706656502957.png" width="40" height="40">
+										<span class="px-1 fs-sm lh-1 fw-semibold">U.S. Embassy in Sri Lanka</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<nav class="navbar navbar-expand-lg navbar-light w-100 py-0 mx-auto" style="--gutter-x: 1.25rem; --gutter-y: 0; padding-right: calc(var(--gutter-x)* 1.6); padding-left: calc(var(--gutter-x)* 1.6);">
+			<div class="container">
+				<a class="navbar-brand w-auto me-3" href="/">
+					<img src="{% static R.data.settings.logo %}" class="mb-0 text-nowrap h-100 ratio-1x1" width="150" alt="logo">
+				</a>
+				<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background: var(--primary-color) !important;">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				{% with icons=False %}
+					<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto pe-2">
+							<li class="nav-item text-start scale-up-hor-left-hover {% if R.data.navigator.activeTab == 'home' %}active{% endif %}">
+								<a href="/" class="nav-link text-nowrap fw-semibold">
+									{% if icons %}<i class="ph ph-house" aria-hidden="false"></i>&nbsp;{% endif %} Home
+								</a>
+							</li>
+							<li class="nav-item {% if R.data.navigator.activeTab == 'car-rental' %}active{% endif %}">
+								<a href="#" class="nav-link text-nowrap fw-semibold">
+									{% if icons %}<i class="ph ph-car" aria-hidden="false"></i>&nbsp;{% endif %} About Us
+								</a>
+							</li>
+							<li class="nav-item {% if R.data.navigator.activeTab == 'wedding-cars' %}active{% endif %}">
+								<a href="#" class="nav-link text-nowrap fw-semibold">
+									{% if icons %}<i class="ph ph-heart" aria-hidden="false"></i>&nbsp;{% endif %} Programs
+								</a>
+							</li>
+							<li class="nav-item {% if R.data.navigator.activeTab == 'tours' %}active{% endif %}">
+								<a href="#" class="nav-link text-nowrap fw-semibold">
+									{% if icons %}<i class="ph ph-globe-hemisphere-west" aria-hidden="false"></i>&nbsp;{% endif %} Sponsors
+								</a>
+							</li>
+							<li class="nav-item {% if R.data.navigator.activeTab == 'air-ticketing' %}active{% endif %}">
+								<a href="#" class="nav-link text-nowrap fw-semibold">
+									{% if icons %}<i class="ph ph-airplane-tilt" aria-hidden="false"></i>&nbsp;{% endif %} News & Updates
+								</a>
+							</li>
+							<li class="nav-item {% if R.data.navigator.activeTab == 'air-ticketing' %}active{% endif %}">
+								<a href="#" class="nav-link text-nowrap fw-semibold">
+									{% if icons %}<i class="ph ph-airplane-tilt" aria-hidden="false"></i>&nbsp;{% endif %} Contact Us
+								</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav ml-auto px-0">
+							{% if not request.user.is_authenticated %}<li class="nav-item ms-lg-2">
+								<button id="login" class="btn btn-primary nav-item navbar-left text-nowrap fw-semibold border-0 rounded-3">
+									Log In
+								</button>
+							</li>
+							{% else %}<li class="nav-item nav-item-dropdown-lg dropdown ms-lg-2">
+								<a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
+									<img src="{% static R.images.profile.path %}" class="w-32px h-32px rounded-pill" alt="">
+								</a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<a href="#" class="dropdown-item">
+										<i class="bi bi-person-circle me-2"></i>
+										My profile
+									</a>
+									<div class="dropdown-divider"></div>
+									<a href="#" id="logout" class="dropdown-item">
+										<i class="bi bi-box-arrow-right me-2"></i>
+										Logout
+									</a>
+								</div>
+							</li>
+							{% endif %}
+						</ul>
+					</div>
+				{% endwith %}
+			</div>
+		</nav>
+	{% endif %}
+{% endif %}

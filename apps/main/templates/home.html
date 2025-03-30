@@ -1,0 +1,426 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load currency %}
+{% load util %}
+
+{% block css %}
+	{{ block.super }}
+	<style>
+	@media only screen and (max-width: 320px) {
+			.hero-section {
+				max-height: none;
+			}
+			.hero-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.event-section {
+				max-height: none;
+			}
+
+			.event-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.faq-section {
+				max-height: none;
+			}
+
+			.faq-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.contact-section {
+				max-height: none;
+			}
+		}
+
+		@media only screen and (min-width: 321px) and (max-width: 561px) {
+			.hero-section {
+				max-height: none;
+			}
+			.hero-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.event-section {
+				max-height: none;
+			}
+
+			.event-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.faq-section {
+				max-height: none;
+			}
+
+			.faq-bg {
+				min-height: clamp(1024px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.contact-section {
+				max-height: none;
+			}
+		}
+
+		@media only screen and (min-width: 562px) and (max-width: 768px) {
+			.hero-section {
+				max-height: none;
+			}
+			.hero-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.event-section {
+				max-height: none;
+			}
+
+			.event-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.faq-section {
+				max-height: none;
+			}
+
+			.faq-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.contact-section {
+				max-height: none;
+			}
+		}
+
+		@media only screen and (min-width: 769px) and (max-width: 991.98px) {
+			.hero-section {
+				max-height: none;
+			}
+			.hero-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.event-section {
+				max-height: none;
+			}
+
+			.event-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.faq-section {
+				max-height: none;
+			}
+
+			.faq-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.contact-section {
+				max-height: none;
+			}
+		}
+
+		@media only screen and (min-width: 992px) {
+			.hero-section {
+				max-height: 893px;
+			}
+			.hero-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.event-section {
+				max-height: 893px;
+			}
+
+			.event-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.faq-section {
+				max-height: 893px;
+			}
+
+			.faq-bg {
+				min-height: clamp(564px, calc(100vh - 93px), 1000px) !important;
+			}
+
+			.contact-section {
+				max-height: 893px;
+			}
+		}
+
+	.custom-tabs .nav-link {
+		border: none; /* Remove default Bootstrap border */
+		font-weight: bold; /* Make the text bold */
+		color: black; /* Ensure text is black */
+		padding-bottom: 5px; /* Adjust spacing */
+		position: relative; /* Needed for underline effect */
+	}
+
+	.custom-tabs .nav-link.active {
+		color: black; /* Ensure active tab text is black */
+		background: transparent !important;
+	}
+
+	.custom-tabs .nav-link.active::after {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 1px;
+		background-color: black; /* Underline color */
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+	</style>
+{% endblock %}
+
+{% block content %}
+<section id="hero-section" class="hero-section profile-cover" style="overflow-y: clip;">
+    <div class="profile-cover-img hero-section hero-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ hero.background }})"></div>
+    <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100">
+        <h1 class="fw-bold lh-1 mb-2" style="font-size: 40px;">{{ hero.title }}</h1>
+		<p class="fs-lg lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ hero.subtitle }}</p>
+		<div class="d-flex flex-row gap-2">
+			<a type="button" class="btn {{ hero.primaryButton.classNames }} me-2" href="{{ hero.primaryButton.link }}">{{ hero.primaryButton.text }}</a>
+			<a type="button" class="btn {{ hero.secondaryButton.classNames }} me-2" href="{{ hero.secondaryButton.link }}">{{ hero.secondaryButton.text }}</a>
+		</div>
+    </div>
+</section>
+<section id="event-section" class="event-section profile-cover" style="overflow-y: clip;">
+    <div class="profile-cover-img hero-section event-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ event.background }})"></div>
+    <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100 gap-3">
+		<h2 class="fw-light fs-1 lh-1">OUR EVENTS</h2>
+        <h1 class="fw-semibold lh-1 mb-2" style="font-size: 48px;">{{ event.title }}</h1>
+		<p class="fs-sm fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ event.subtitle }}</p>
+		<div class="d-flex flex-row gap-3">
+			<div class="d-flex flex-column gap-1">
+				<span class="fw-semibold lh-1" style="font-size: 36px;" id="eventRemainingDays">12</span>
+				<span class="fs-base">days</span>
+			</div>
+			<div class="d-flex flex-column gap-1">
+				<span class="fw-semibold lh-1" style="font-size: 36px;" id="eventRemainingHours">10</span>
+				<span class="fs-base">hours</span>
+			</div>
+			<div class="d-flex flex-column gap-1">
+				<span class="fw-semibold lh-1" style="font-size: 36px;" id="eventRemainingMinutes">24</span>
+				<span class="fs-base">minutes</span>
+			</div>
+			<div class="d-flex flex-column gap-1">
+				<span class="fw-semibold lh-1" style="font-size: 36px;" id="eventRemainingSeconds">13</span>
+				<span class="fs-base">sec</span>
+			</div>
+		</div>
+		<div class="d-flex flex-row gap-2">
+			<a type="button" class="btn btn-primary me-2" href="{{ event.link }}">Learn More</a>
+		</div>
+    </div>
+</section>
+<section id="programs-section" class="programs-section container d-flex flex-column justify-content-center align-items-center pb-4 pt-5">
+	<h1 class="fw-medium lh-1 mb-2 text-center" style="font-size: 50px;">What We Do</h1>
+	<p class="fs-5 mb-4 text-center" style="max-width: 768px;">Have questions? We're here to help you on your English learning journey.</p>
+	<div class="d-flex flex-column w-100">
+			<ul class="custom-tabs nav nav-tabs justify-content-center border-bottom-0">
+				<li class="nav-item m-0">
+					<a href="#audience-1" class="nav-link active" data-bs-toggle="tab">
+						Audience 1
+					</a>
+				</li>
+				<li class="nav-item m-0">
+					<a href="#audience-2" class="nav-link" data-bs-toggle="tab">
+						Audience 2
+					</a>
+				</li>
+				<li class="nav-item m-0">
+					<a href="#audience-3" class="nav-link" data-bs-toggle="tab">
+						Audience 3
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content mt-3 w-100">
+				<div class="tab-pane fade show active w-100" id="audience-1">
+					<div class="swiper w-100" id="audience-1-programs">
+						<div class="swiper-wrapper" style="padding-bottom: 16px;">
+							{% for _ in ''|ljust:5 %}
+								<div class="swiper-slide" style="max-width: 360px;">
+									<div class="card w-100">
+										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
+										<div class="card-body d-flex flex-column justify-content-center align-items-start">
+											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
+											<p class="fs-xs mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore es </p>
+											<button class="btn btn-primary" style="padding: 4px 16px;">Read More</button>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade w-100" id="audience-2">
+					<div class="swiper w-100" id="audience-2-programs">
+						<div class="swiper-wrapper" style="padding-bottom: 16px;">
+							{% for _ in ''|ljust:5 %}
+								<div class="swiper-slide" style="max-width: 360px;">
+									<div class="card w-100">
+										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
+										<div class="card-body d-flex flex-column justify-content-center align-items-start">
+											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
+											<p class="fs-xs mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore es </p>
+											<button class="btn btn-primary" style="padding: 4px 16px;">Read More</button>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade w-100" id="audience-3">
+					<div class="swiper w-100" id="audience-3-programs">
+						<div class="swiper-wrapper" style="padding-bottom: 16px;">
+							{% for _ in ''|ljust:5 %}
+								<div class="swiper-slide" style="max-width: 360px;">
+									<div class="card w-100">
+										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
+										<div class="card-body d-flex flex-column justify-content-center align-items-start">
+											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
+											<p class="fs-xs mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore es </p>
+											<button class="btn btn-primary" style="padding: 4px 16px;">Read More</button>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+<section id="faq-section" class="faq-section profile-cover" style="overflow-y: clip;">
+	<div class="profile-cover-img hero-section faq-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ faq.background }})"></div>
+	<div class="d-flex flex-column text-white justify-content-center align-items-start position-absolute top-0 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100 h-100" style="background: #0A7EBFC4;">
+		<div class="container d-flex flex-column text-white justify-content-center align-items-center gap-3">
+			<h1 class="fw-medium lh-1 mb-0 text-center" style="font-size: 50px;">FAQS</h1>
+			<p class="fs-5 mb-5 text-center">Find answers to common questions about ESP Academy.</p>
+			<div class="d-flex flex-column flex-md-row text-dark w-100 gap-2">
+				<div class="d-flex flex-column w-100 gap-2">
+					{% for _ in ''|ljust:5 %}
+						<a href="#" class="d-flex flex-row w-100 justify-content-between card card-body px-3 py-2 mb-0 cursor-pointer">
+							<span>What are the qualifications of your tutors?</span>
+							<i class="bi bi-chevron-right"></i>
+						</a>
+					{% endfor %}
+				</div>
+				<div class="d-flex flex-column w-100 gap-2">
+					{% for _ in ''|ljust:5 %}
+						<a href="#" class="d-flex flex-row w-100 justify-content-between card card-body px-3 py-2 mb-0 cursor-pointer">
+							<span>What are the qualifications of your tutors?</span>
+							<i class="bi bi-chevron-right"></i>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="contact-section" class="contact-section container d-flex flex-column justify-content-center align-items-center py-5">
+	<h1 class="fw-medium lh-1 mb-2 text-center" style="font-size: 50px;">Get in touch with us</h1>
+	<p class="fs-5 mb-4 text-center" style="max-width: 768px;">Have questions? We're here to help you on your English learning journey.</p>
+	<div class="d-flex flex-column-reverse flex-md-row gap-2 w-100">
+		<div class="d-flex flex-column w-100">
+			<div class="card bg-primary card-body text-white gap-4">
+				<div class="d-flex flex-row align-items-center">
+					<i class="bi bi-envelope bg-light h-32px w-32px rounded-5 text-black text-center" style="line-height: 2.4;"></i>
+					<div class="d-flex flex-column ms-2">
+						<span class="fw-medium fs-6 lh-1 mb-1">Email Address</span>
+						<span class="opacity-75 fs-base lh-1">support@we-lead.com</span>
+					</div>
+				</div>
+				<div class="d-flex flex-row align-items-center">
+					<i class="bi bi-phone bg-light h-32px w-32px rounded-5 text-black text-center" style="line-height: 2.4;"></i>
+					<div class="d-flex flex-column ms-2">
+						<span class="fw-medium fs-6 lh-1 mb-1">Mobile Number</span>
+						<span class="opacity-75 fs-base lh-1">+1-800-123-4567</span>
+					</div>
+				</div>
+				<div class="d-flex flex-row align-items-center">
+					<i class="bi bi-geo-alt bg-light h-32px w-32px rounded-5 text-black text-center" style="line-height: 2.4;"></i>
+					<div class="d-flex flex-column ms-2">
+						<span class="fw-medium fs-6 lh-1 mb-1">Address</span>
+						<span class="opacity-75 fs-base lh-1">123 English Lane, Learning City, Edutopia</span>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex flex-column h-100">
+
+			</div>
+		</div>
+		<div class="d-flex flex-column card card-body w-100">
+			<div class="row">
+				<label class="col-12 col-sm-6 form-label text-dark text-muted fs-sm">First Name<span class="text-danger">*</span>
+					<input type="text" class="form-control input-field" id="firstName" name="firstName" placeholder="John" value="{% if request.user.is_authenticated %}{{ request.user.firstName }}{% endif %}" required>
+				</label>
+			 	<label class="col-12 col-sm-6 form-label text-dark text-muted fs-sm">Last Name<span class="text-danger">*</span>
+					<input type="text" class="form-control input-field" id="lastName" name="lastName" placeholder="Smith" value="{% if request.user.is_authenticated %}{{ request.user.lastName }}{% endif %}" required>
+				</label>
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-6 text-dark">
+					<label for="mobileNumber">Mobile Number<span class="text-danger">*</span></label>
+					<div class="input-group">
+						<select id="countryCode" name="countryCode" class="form-control select text-end p-0" data-minimum-results-for-search="Infinity" data-width="auto"  style="background: #F1F0EE; !important; max-width: max-content !important; border: 0 solid transparent !important; border-top-left-radius: 8px; border-bottom-left-radius: 8px;" aria-label="Country Code" required>
+							{% for country in countries %}
+								<option value="{{ country.code }}" {% if request.user.is_authenticated and request.user.countryCode == country.code %}selected{% endif %}>{{ country.emoji }} +{{ country.code }}</option>
+							{% endfor %}
+						</select>
+						<input type="text" id="mobileNumber" name="mobileNumber" class="form-control" placeholder="1234567890"  style="background: #F1F0EE; !important; border: 0 solid transparent !important; border-top-right-radius: 8px; border-bottom-right-radius: 8px;" inputmode="numeric" value="{% if request.user.is_authenticated and request.user.mobileNumber %}{{ request.user.mobileNumberWithLength }}{% endif %}" required>
+					</div>
+				</div>
+				<label class="col-12 col-md-6 form-label text-dark text-muted fs-sm">Email Address<span class="text-danger">*</span>
+					<input type="text" class="form-control input-field" id="email" name="email" placeholder="john@gmail.com" value="{% if request.user.is_authenticated %}{{ request.user.lastName }}{% endif %}" required>
+				</label>
+			</div>
+			<label class="col-12 form-label text-dark text-muted fs-sm">Message<span class="text-danger">*</span>
+				<textarea class="form-control input-field" id="message" name="message" placeholder="What can we help you with?" style="height: 200px; max-height: 200px;" required></textarea>
+			</label>
+			<button class="btn btn-primary w-100">Submit</button>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+	<script nonce="{{ nonce }}">
+		document.addEventListener('DOMContentLoaded', function() {
+			let audience1Programs = new Swiper('#audience-1-programs', {
+				slidesPerView: 'auto',
+				spaceBetween: 16,
+				loop: true,
+				autoplay: {
+					delay: 2000,
+					disableOnInteraction: false,
+				}
+			});
+			let audience2Programs = new Swiper('#audience-2-programs', {
+				slidesPerView: 'auto',
+				spaceBetween: 16,
+				loop: true,
+				autoplay: {
+					delay: 2000,
+					disableOnInteraction: false,
+				}
+			});
+			let audience3Programs = new Swiper('#audience-3-programs', {
+				slidesPerView: 'auto',
+				spaceBetween: 16,
+				loop: true,
+				autoplay: {
+					delay: 2000,
+					disableOnInteraction: false,
+				}
+			});
+		});
+	</script>
+{% endblock %}

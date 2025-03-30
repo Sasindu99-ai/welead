@@ -1,0 +1,16 @@
+:root {
+    --accent-color: #FFFFFF;
+    --primary-color: #0A7EBF;
+    --secondary-color: #ED8E2E;
+    --font-reverse: #FFFFFF;
+
+    --accent-rgb: 255, 255, 255;
+    --primary-rgb: 10, 126, 191 !important;
+    --secondary-rgb: 237, 142, 46 !important;
+    --font-reverse-rgb: 255, 255, 255;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color) !important;
+    color: var(--font-reverse) !important;
+}
