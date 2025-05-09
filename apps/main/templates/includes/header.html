@@ -1,12 +1,22 @@
 {% load files %}
 
 <style>
+    @font-face {
+      font-family: NotoColorEmojiLimited;
+      unicode-range: U+1F1E6-1F1FF;
+      src: url(https://raw.githack.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf);
+    }
+
 	:root, [data-color-theme=light] {
 		--focus-ring-box-shadow: 0 0 0 0.125rem rgba(12, 131, 255, 0.0) !important;
 	}
 	.nav-tabs-underline {
 		--nav-tabs-underline-color: #000000 !important;
 	}
+
+    * {
+        font-family: "Poppins", "Noto Color Emoji", "-apple-system", ".AppleSystemUIFont", sans-serif;
+    }
 </style>
 
 {# CSS Files #}
