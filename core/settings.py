@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List
 
 BASE_DIR = Path(os.environ.get("DJANGO_SETTINGS_BASE_PATH", ".")).resolve()
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+DEBUG = os.environ.get("DEBUG", "True") == "T"
 SECRET_KEY = os.environ.get("SECRET_KEY", "secret_key")
 ENV = os.environ.get("ENVIRONMENT", "development")
 USE_TZ = True

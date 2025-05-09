@@ -174,19 +174,167 @@
 		bottom: 0;
 		left: 0;
 	}
+
+    /*
+    .movie-swiper {
+        width: 80vw;
+        height: 60vh;
+    }
+
+    .movie-swiper .swiper-wrapper .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 24px;
+        border-radius: 16px;
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }*/
+    .movie-swiper {
+      width: 100% !important;
+      /* Height will be automatically adjusted by aspect-ratio of slides */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 0;
+    }
+
+    .movie-swiper .swiper-wrapper {
+      align-items: center;
+    }
+
+    .movie-swiper .swiper-slide {
+      aspect-ratio: 16 / 9;
+      width: 80%; /* Controls visible size of center slide */
+      max-width: 960px; /* Optional: prevent it from growing too large */
+      border-radius: 20px;
+      background: #111;
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .swiper-slide video {
+        pointer-events: none; /* This allows clicks to pass through */
+    }
+
+    @media (max-width: 767px) {
+      .movie-swiper .swiper-slide {
+        width: 90% !important;
+      }
+    }
+
+    /* Zoom effects */
+    .zoom-out {
+      transform: scale(0.8) !important;
+    }
+
+    .zoom-in {
+      transform: scale(1) !important;
+    }
+
+    #hero-swiper .swiper-slide {
+      transition: transform 0.5s ease;
+    }
+
+    #hero-swiper .swiper-button-prev:after {
+        content: none !important;
+    }
+    #hero-swiper .swiper-button-prev {
+        width: 64px;
+        top: -43vh;
+        z-index: 10;
+        left: 60px;
+        cursor: pointer;
+        transition: all 0.3s;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14px;
+    }
+
+
+    #hero-swiper .swiper-button-next:after {
+        content: none !important;
+    }
+    #hero-swiper .swiper-button-next {
+        width: 64px;
+        top: 43vh;
+        right: 60px;
+        z-index: 10;
+        cursor: pointer;
+        transition: all 0.3s;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14px;
+    }
 	</style>
 {% endblock %}
 
 {% block content %}
 <section id="hero-section" class="hero-section profile-cover" style="overflow-y: clip;">
-    <div class="profile-cover-img hero-section hero-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ hero.background }})"></div>
-    <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100">
-        <h1 class="fw-bold lh-1 mb-2" style="font-size: 40px;">{{ hero.title }}</h1>
-		<p class="fs-lg lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ hero.subtitle }}</p>
-		<div class="d-flex flex-row gap-2">
-			<a type="button" class="btn {{ hero.primaryButton.classNames }} me-2" href="{{ hero.primaryButton.link }}">{{ hero.primaryButton.text }}</a>
-			<a type="button" class="btn {{ hero.secondaryButton.classNames }} me-2" href="{{ hero.secondaryButton.link }}">{{ hero.secondaryButton.text }}</a>
-		</div>
+    <div class="swiper hero-swiper" id="hero-swiper">
+        <div class="swiper-wrapper">
+            {% for _ in ''|ljust:5 %}
+                <div class="swiper-slide">
+                    <div class="profile-cover-img hero-section hero-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ hero.background }})"></div>
+                    <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100">
+                        <h1 class="fw-bold lh-1 mb-2" style="font-size: 40px;">{{ hero.title }}</h1>
+                        <p class="fs-lg lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ hero.subtitle }}</p>
+                        <div class="d-flex flex-row gap-2">
+                            <a type="button" class="btn {{ hero.primaryButton.classNames }} me-2" href="{{ hero.primaryButton.link }}">{{ hero.primaryButton.text }}</a>
+                            <a type="button" class="btn {{ hero.secondaryButton.classNames }} me-2" href="{{ hero.secondaryButton.link }}">{{ hero.secondaryButton.text }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-button-prev d-flex flex-row position-relative">
+            <img class="position-absolute" src="{% static R.images.arrowPrev.path %}">
+            <div class="w-40px h-40px rounded-circle border-width-1 border-light left-0"></div>
+        </div>
+        <div class="swiper-button-next d-flex flex-row position-absolute">
+            <img class="position-absolute" src="{% static R.images.arrowNext.path %}">
+            <div class="w-40px h-40px rounded-circle border-width-1 border-light top-50"></div>
+        </div>
+    </div>
+</section>
+<section id="intro-section" class="intro-section container d-flex flex-column justify-content-center align-items-center py-5">
+    <div class="swiper movie-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.visionBg.path %}') center center / cover;">
+            <span>Our Vision</span>
+            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+        </div>
+        <div class="swiper-slide rounded-4" data-type="video" style="position: relative;">
+          <video id="introVideo" playsinline autoplay muted style="width: 100%; object-fit: cover; border-radius: 16px; aspect-ratio: 16/9 !important;" preload="auto" poster="{% static R.images.introThumbnail.path %}">
+            <source src="{% static R.images.intro.path %}" type="video/mp4" />
+          </video>
+          <button id="muteToggle" style="
+            position: absolute;
+            z-index: 1000;
+            top: 16px;
+            right: 16px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+          ">🔇</button>
+        </div>
+        <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.missionBg.path %}') center center / cover;">
+            <span>Our Mission</span>
+            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+        </div>
+      </div>
     </div>
 </section>
 <section id="event-section" class="event-section profile-cover" style="overflow-y: clip;">
@@ -388,12 +536,81 @@
 		</div>
 	</div>
 </section>
+<section id="sponsors-section" class="sponsors-section d-flex flex-column justify-content-center align-items-center py-5 bg-primary">
+    <div class="container">
+        <div class="d-flex flex-row gap-2 swiper" id="sponsors">
+            <div class="swiper-wrapper" >
+                {% for _ in ''|ljust:10 %}
+                    <img src="{% static R.images.sponsorSample.path %}" class="swiper-slide img-fluid px-2" alt="Sponsor" style="max-width: 160px; max-height: 160px;">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block js %}
 {{ block.super }}
 	<script nonce="{{ nonce }}">
 		document.addEventListener('DOMContentLoaded', function() {
+            let autoplayTimeout;
+            let heroSwiper = new Swiper('.hero-swiper', {
+              loop: true,
+              slidesPerView: 1,
+              allowTouchMove: false,
+              on: {
+                init: function () {
+                  startAutoplay();
+                }
+              }
+            });
+
+            function startAutoplay() {
+              clearTimeout(autoplayTimeout);
+              autoplayTimeout = setTimeout(() => {
+                triggerZoomSlide('next');
+                startAutoplay();
+              }, 5000);
+            }
+
+            function triggerZoomSlide(direction = 'next') {
+              const slides = heroSwiper.slides;
+
+              // 1. Zoom out
+              slides.forEach(slide => {
+                slide.classList.remove('zoom-in');
+                slide.classList.add('zoom-out');
+              });
+
+              // 2. After zoom out, change slide
+              setTimeout(() => {
+                if (direction === 'next') {
+                  heroSwiper.slideNext(500, false);
+                } else {
+                  heroSwiper.slidePrev(500, false);
+                }
+
+                // 3. After slide transition, zoom in
+                setTimeout(() => {
+                  slides.forEach(slide => {
+                    slide.classList.remove('zoom-out');
+                    slide.classList.add('zoom-in');
+                  });
+                }, 500);
+              }, 500);
+            }
+
+            // Restart autoplay on manual navigation
+            document.querySelector('.swiper-button-next').addEventListener('click', () => {
+              triggerZoomSlide('next');
+              startAutoplay();
+            });
+
+            document.querySelector('.swiper-button-prev').addEventListener('click', () => {
+              triggerZoomSlide('prev');
+              startAutoplay();
+            });
+
 			let audience1Programs = new Swiper('#audience-1-programs', {
 				slidesPerView: 'auto',
 				spaceBetween: 16,
@@ -421,6 +638,115 @@
 					disableOnInteraction: false,
 				}
 			});
+
+            let sponsors = new Swiper('#sponsors', {
+                slidesPerView: 'auto',
+                spaceBetween: 16,
+                loop: true,
+                autoplay: {
+                    delay: 2000,
+                    disableOnInteraction: false,
+                }
+            });
+
+            let userNavigated = false;
+            const intro = new Swiper('.movie-swiper', {
+              effect: 'coverflow',
+              loop: false,
+              centeredSlides: true,
+              initialSlide: 1,
+              grabCursor: true,
+              slidesPerView: 1.5,
+              spaceBetween: 32,
+              coverflowEffect: {
+                rotate: 0,
+                stretch: -50,
+                depth: 150,
+                modifier: 2,
+                slideShadows: false,
+              },
+              keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+              },
+              breakpoints: {
+                // For mobile devices
+                0: {
+                  slidesPerView: 1.1,
+                  spaceBetween: 16,
+                  coverflowEffect: {
+                    stretch: -30,
+                    depth: 80,
+                    modifier: 1.5,
+                  }
+                },
+                // Tablets and up
+                768: {
+                  slidesPerView: 1.3,
+                  spaceBetween: 24,
+                  coverflowEffect: {
+                    stretch: -40,
+                    depth: 120,
+                    modifier: 1.8,
+                  }
+                },
+                // Desktops
+                1024: {
+                  slidesPerView: 1.5,
+                  spaceBetween: 32,
+                  coverflowEffect: {
+                    stretch: -50,
+                    depth: 150,
+                    modifier: 2,
+                  }
+                }
+              },
+              on: {
+                slideChangeTransitionStart: function () {
+                  userNavigated = true;
+                },
+                slideChangeTransitionEnd: function () {
+                  this.slides.forEach(slide => {
+                    const v = slide.querySelector('video');
+                    if (v) v.pause();
+                  });
+
+                  const activeSlide = this.slides[this.activeIndex];
+                  if (activeSlide.dataset.type === 'video') {
+                    const vid = activeSlide.querySelector('video');
+                    if (vid) {
+                      vid.play().then(() => {
+                        if (!userNavigated) {
+                          vid.onended = () => this.slideNext();
+                        } else {
+                          vid.onended = null;
+                          userNavigated = false;
+                        }
+                      }).catch(() => {
+                        if (!userNavigated) {
+                          setTimeout(() => this.slideNext(), 2000);
+                        }
+                        userNavigated = false;
+                      });
+                    }
+                  } else {
+                    if (!userNavigated) {
+                      setTimeout(() => this.slideNext(), 2000);
+                    }
+                    userNavigated = false;
+                  }
+                },
+              }
+            });
+
+            intro.keyboard.enable();
+            document.getElementById('muteToggle').addEventListener('click', () => {
+              const vid = document.querySelector('.swiper-slide-active video');
+              if (vid) {
+                vid.muted = !vid.muted;
+                document.getElementById('muteToggle').innerHTML = vid.muted ? '🔇' : '🔊';
+              }
+            });
 		});
 	</script>
 {% endblock %}

@@ -25,4 +25,11 @@ class Images(utils.Images):
         route="route.png",
         transport="transport.png",
         programSample="programSample.png",
+        sponsorSample="sponsorSample.png",
+        intro="intro.mp4",
+        visionBg='visionBg.png',
+        missionBg='missionBg.png',
+        introThumbnail='introThumbnail.png',
+        arrowNext='arrowNext.png',
+        arrowPrev='arrowPrev.png'
     )

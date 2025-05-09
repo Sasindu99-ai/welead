@@ -1,7 +1,7 @@
 # Makefile
 
 # Define a variable for the poetry command to keep it DRY
-POETRY = poetry
+POETRY = uv
 MANAGER = python main.py
 PORT = 8010
 
