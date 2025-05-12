@@ -175,23 +175,6 @@
 		left: 0;
 	}
 
-    /*
-    .movie-swiper {
-        width: 80vw;
-        height: 60vh;
-    }
-
-    .movie-swiper .swiper-wrapper .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 24px;
-        border-radius: 16px;
-        background-size: cover;
-        background-position: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }*/
     .movie-swiper {
       width: 100% !important;
       /* Height will be automatically adjusted by aspect-ratio of slides */
@@ -228,11 +211,37 @@
       .movie-swiper .swiper-slide {
         width: 90% !important;
       }
+
+		#hero-swiper .button-prev {
+			scale: 0.8;
+			top: calc(100% - 80px) !important;
+			left: calc(100% - 180px) !important;
+		}
+
+		#hero-swiper .button-next {
+			scale: 0.8;
+			top: calc(100% - 80px) !important;
+			right: 24px !important;
+		}
     }
+
+	@media (max-width: 480px) {
+		#hero-swiper .button-prev {
+			scale: 0.6;
+			top: calc(100% - 80px) !important;
+			left: calc(100% - 140px) !important;
+		}
+
+		#hero-swiper .button-next {
+			scale: 0.6;
+			top: calc(100% - 80px) !important;
+			right: 0 !important;
+		}
+	}
 
     /* Zoom effects */
     .zoom-out {
-      transform: scale(0.8) !important;
+      transform: scale(0.6) !important;
     }
 
     .zoom-in {
@@ -243,15 +252,16 @@
       transition: transform 0.5s ease;
     }
 
-    #hero-swiper .swiper-button-prev:after {
+    #hero-swiper .button-prev:after {
         content: none !important;
     }
-    #hero-swiper .swiper-button-prev {
-        width: 64px;
-        top: -43vh;
+    #hero-swiper .button-prev {
+        width: 96px;
+		height: auto;
         z-index: 10;
-        left: 60px;
-        cursor: pointer;
+		top: 50%;
+		left: 32px;
+		cursor: pointer;
         transition: all 0.3s;
         background-repeat: no-repeat;
         background-position: center;
@@ -259,13 +269,14 @@
     }
 
 
-    #hero-swiper .swiper-button-next:after {
+    #hero-swiper .button-next:after {
         content: none !important;
     }
-    #hero-swiper .swiper-button-next {
-        width: 64px;
-        top: 43vh;
-        right: 60px;
+    #hero-swiper .button-next {
+        width: 96px;
+		height: auto;
+        top: 50%;
+        right: 32px;
         z-index: 10;
         cursor: pointer;
         transition: all 0.3s;
@@ -273,6 +284,11 @@
         background-position: center;
         background-size: 14px;
     }
+
+	.hover-scale:hover {
+		transform: scale(1.05);
+		transition: transform 0.3s ease;
+	}
 	</style>
 {% endblock %}
 
@@ -283,7 +299,7 @@
             {% for _ in ''|ljust:5 %}
                 <div class="swiper-slide">
                     <div class="profile-cover-img hero-section hero-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ hero.background }})"></div>
-                    <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100">
+                    <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-5 w-100">
                         <h1 class="fw-bold lh-1 mb-2" style="font-size: 40px;">{{ hero.title }}</h1>
                         <p class="fs-lg lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ hero.subtitle }}</p>
                         <div class="d-flex flex-row gap-2">
@@ -294,13 +310,17 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="swiper-button-prev d-flex flex-row position-relative">
-            <img class="position-absolute" src="{% static R.images.arrowPrev.path %}">
-            <div class="w-40px h-40px rounded-circle border-width-1 border-light left-0"></div>
+        <div class="position-absolute button-prev">
+			<div class="position-relative d-flex flex-row justify-content-end w-72px">
+            	<img src="{% static R.images.arrowPrev.path %}" width="72">
+            	<div class="w-56px h-56px rounded-circle position-absolute" style="border: 1px solid #FFFFFF; top: 12%; left: -24px;"></div>
+			</div>
         </div>
-        <div class="swiper-button-next d-flex flex-row position-absolute">
-            <img class="position-absolute" src="{% static R.images.arrowNext.path %}">
-            <div class="w-40px h-40px rounded-circle border-width-1 border-light top-50"></div>
+        <div class="position-absolute button-next">
+			<div class="position-relative d-flex flex-row justify-content-start w-72px">
+				<img src="{% static R.images.arrowNext.path %}" width="72">
+				<div class="w-56px h-56px rounded-circle position-absolute" style="border: 1px solid #FFFFFF; top: 12%; right: -24px;"></div>
+			</div>
         </div>
     </div>
 </section>
@@ -312,7 +332,7 @@
             <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
         </div>
         <div class="swiper-slide rounded-4" data-type="video" style="position: relative;">
-          <video id="introVideo" playsinline autoplay muted style="width: 100%; object-fit: cover; border-radius: 16px; aspect-ratio: 16/9 !important;" preload="auto" poster="{% static R.images.introThumbnail.path %}">
+          <video id="introVideo" playsinline autoplay muted loop style="width: 100%; object-fit: cover; border-radius: 16px; aspect-ratio: 16/9 !important;" preload="auto" poster="{% static R.images.introThumbnail.path %}">
             <source src="{% static R.images.intro.path %}" type="video/mp4" />
           </video>
           <button id="muteToggle" style="
@@ -343,7 +363,7 @@
 		<h2 class="fw-light fs-1 lh-1">OUR EVENTS</h2>
         <h1 class="fw-semibold lh-1 mb-2" style="font-size: 48px;">{{ event.title }}</h1>
 		<p class="fs-sm fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ event.subtitle }}</p>
-		<div class="d-flex flex-row gap-3">
+		<div class="d-flex flex-row gap-3" id="count-down">
 			<div class="d-flex flex-column gap-1">
 				<span class="fw-semibold lh-1" style="font-size: 36px;" id="eventRemainingDays">12</span>
 				<span class="fs-base">days</span>
@@ -392,8 +412,8 @@
 					<div class="swiper w-100" id="audience-1-programs">
 						<div class="swiper-wrapper" style="padding-bottom: 16px;">
 							{% for _ in ''|ljust:5 %}
-								<div class="swiper-slide" style="max-width: 360px;">
-									<div class="card w-100">
+								<div class="swiper-slide pt-2" style="max-width: 360px;">
+									<div class="card w-100 hover-scale">
 										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
 										<div class="card-body d-flex flex-column justify-content-center align-items-start">
 											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
@@ -410,8 +430,8 @@
 					<div class="swiper w-100" id="audience-2-programs">
 						<div class="swiper-wrapper" style="padding-bottom: 16px;">
 							{% for _ in ''|ljust:5 %}
-								<div class="swiper-slide" style="max-width: 360px;">
-									<div class="card w-100">
+								<div class="swiper-slide pt-2" style="max-width: 360px;">
+									<div class="card w-100 hover-scale">
 										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
 										<div class="card-body d-flex flex-column justify-content-center align-items-start">
 											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
@@ -428,8 +448,8 @@
 					<div class="swiper w-100" id="audience-3-programs">
 						<div class="swiper-wrapper" style="padding-bottom: 16px;">
 							{% for _ in ''|ljust:5 %}
-								<div class="swiper-slide" style="max-width: 360px;">
-									<div class="card w-100">
+								<div class="swiper-slide pt-2" style="max-width: 360px;">
+									<div class="card w-100 hover-scale">
 										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
 										<div class="card-body d-flex flex-column justify-content-center align-items-start">
 											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
@@ -553,6 +573,38 @@
 {{ block.super }}
 	<script nonce="{{ nonce }}">
 		document.addEventListener('DOMContentLoaded', function() {
+			function animateCurrentSlide(slide) {
+				if (!slide) return;
+				const title = slide.querySelector("h1");
+				const subtitle = slide.querySelector("p");
+				const buttons = slide.querySelectorAll("a.btn");
+
+				if (title && subtitle && buttons.length) {
+					gsap.to(title, {
+						opacity: 1,
+						y: 0,
+						duration: 1,
+						ease: "power2.out",
+						delay: 0.2
+					});
+					gsap.to(subtitle, {
+						opacity: 1,
+						y: 0,
+						duration: 1,
+						ease: "power2.out",
+						delay: 0.4
+					});
+					gsap.to(buttons, {
+						opacity: 1,
+						y: 0,
+						duration: 1,
+						ease: "power2.out",
+						stagger: 0.1,
+						delay: 0.6
+					});
+				}
+			}
+
             let autoplayTimeout;
             let heroSwiper = new Swiper('.hero-swiper', {
               loop: true,
@@ -561,8 +613,9 @@
               on: {
                 init: function () {
                   startAutoplay();
+				  animateCurrentSlide(this.slides[this.activeIndex]);
                 }
-              }
+              },
             });
 
             function startAutoplay() {
@@ -596,17 +649,18 @@
                     slide.classList.remove('zoom-out');
                     slide.classList.add('zoom-in');
                   });
+				  animateCurrentSlide(slides[heroSwiper.activeIndex]);
                 }, 500);
               }, 500);
             }
 
             // Restart autoplay on manual navigation
-            document.querySelector('.swiper-button-next').addEventListener('click', () => {
+            document.querySelector('.button-next').addEventListener('click', () => {
               triggerZoomSlide('next');
               startAutoplay();
             });
 
-            document.querySelector('.swiper-button-prev').addEventListener('click', () => {
+            document.querySelector('.button-prev').addEventListener('click', () => {
               triggerZoomSlide('prev');
               startAutoplay();
             });
@@ -747,6 +801,77 @@
                 document.getElementById('muteToggle').innerHTML = vid.muted ? '🔇' : '🔊';
               }
             });
+		});
+
+		let targetDate = new Date();
+		targetDate = new Date(targetDate.getTime() + (12 * 60 * 60 * 1000) + (42 * 60 * 1000));
+
+		function updateCountdown() {
+			const now = new Date();
+			const timeDiff = targetDate - now;
+
+			if (timeDiff <= 0) {
+				document.getElementById("count-down").innerHTML = "<h5 class='text-danger'>Event Started</h5>";
+				clearInterval(intervalId);
+				return;
+			}
+
+			const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+			const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+			const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+			const seconds = Math.floor((timeDiff / 1000) % 60);
+
+			document.getElementById("eventRemainingDays").textContent = days;
+			document.getElementById("eventRemainingHours").textContent = hours.toString().padStart(2, '0');
+			document.getElementById("eventRemainingMinutes").textContent = minutes.toString().padStart(2, '0');
+			document.getElementById("eventRemainingSeconds").textContent = seconds.toString().padStart(2, '0');
+		}
+
+		// ⏱ Initial call & set interval
+		updateCountdown();
+		const intervalId = setInterval(updateCountdown, 1000);
+	</script>
+	<script nonce="{{ nonce }}">
+		document.addEventListener('DOMContentLoaded', function() {
+			const heroSlides = document.querySelectorAll(".swiper-slide");
+
+			heroSlides.forEach((slide, index) => {
+				const title = slide.querySelector("h1");
+				const subtitle = slide.querySelector("p");
+				const buttons = slide.querySelectorAll("a.btn");
+
+				gsap.set([title, subtitle, buttons], { opacity: 0, y: 50 });
+
+				// Animate on Swiper Slide Change
+				const animateSlide = () => {
+					gsap.to(title, {
+						opacity: 1,
+						y: 0,
+						duration: 1,
+						ease: "power2.out",
+						delay: 0.2
+					});
+					gsap.to(subtitle, {
+						opacity: 1,
+						y: 0,
+						duration: 1,
+						ease: "power2.out",
+						delay: 0.4
+					});
+					gsap.to(buttons, {
+						opacity: 1,
+						y: 0,
+						duration: 1,
+						ease: "power2.out",
+						stagger: 0.1,
+						delay: 0.6
+					});
+				};
+
+				if (index === 0) animateSlide(); // Animate first slide on load
+
+				slide.animateIn = animateSlide; // Attach for Swiper
+			});
 		});
 	</script>
 {% endblock %}
