@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     # Django apps
     "daphne",
     "jazzmin",
+    'whitenoise',
     "whitenoise.runserver_nostatic",
     "django.core.files.storage",
     "django.contrib.admin",

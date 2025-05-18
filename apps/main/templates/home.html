@@ -296,15 +296,15 @@
 <section id="hero-section" class="hero-section profile-cover" style="overflow-y: clip;">
     <div class="swiper hero-swiper" id="hero-swiper">
         <div class="swiper-wrapper">
-            {% for _ in ''|ljust:5 %}
+            {% for banner in banners %}
                 <div class="swiper-slide">
-                    <div class="profile-cover-img hero-section hero-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ hero.background }})"></div>
+                    <div class="profile-cover-img hero-section hero-bg" style="background-image: url({{ banner.image.url }}); background-blend-mode: overlay; background-color: #00000080;"></div>
                     <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-5 w-100">
-                        <h1 class="fw-bold lh-1 mb-2" style="font-size: 40px;">{{ hero.title }}</h1>
-                        <p class="fs-lg lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ hero.subtitle }}</p>
+                        <h1 class="fw-bold lh-1 mb-2" style="font-size: 40px;">{{ banner.title }}</h1>
+                        <p class="fs-lg lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ banner.description }}</p>
                         <div class="d-flex flex-row gap-2">
-                            <a type="button" class="btn {{ hero.primaryButton.classNames }} me-2" href="{{ hero.primaryButton.link }}">{{ hero.primaryButton.text }}</a>
-                            <a type="button" class="btn {{ hero.secondaryButton.classNames }} me-2" href="{{ hero.secondaryButton.link }}">{{ hero.secondaryButton.text }}</a>
+                            <a type="button" class="btn {{ banner.primaryButtonClassNames }} me-2" href="{{ banner.primaryButtonLink }}">{{ banner.primaryButtonText }}</a>
+                            <a type="button" class="btn {{ banner.secondaryButtonClassNames }} me-2" href="{{ banner.secondaryButtonLink }}">{{ banner.secondaryButtonText }}</a>
                         </div>
                     </div>
                 </div>
@@ -329,7 +329,7 @@
       <div class="swiper-wrapper">
         <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.visionBg.path %}') center center / cover;">
             <span>Our Vision</span>
-            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ intro.vision|safe }}</span>
         </div>
         <div class="swiper-slide rounded-4" data-type="video" style="position: relative;">
           <video id="introVideo" playsinline autoplay muted loop style="width: 100%; object-fit: cover; border-radius: 16px; aspect-ratio: 16/9 !important;" preload="auto" poster="{% static R.images.introThumbnail.path %}">
@@ -352,7 +352,7 @@
         </div>
         <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.missionBg.path %}') center center / cover;">
             <span>Our Mission</span>
-            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ intro.mission|safe }}</span>
         </div>
       </div>
     </div>

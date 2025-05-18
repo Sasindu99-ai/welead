@@ -113,6 +113,11 @@ class Service(serializers.ModelSerializer):
             if pagination is not None:
                 page = pagination.get("page")
                 limit = pagination.get("limit")
-                queryset = queryset[(page - 1) * limit : page * limit]
+                if not (page is None and limit is None):
+                    if page is None:
+                        page = 1
+                    if limit is None:
+                        limit = 10
+                    queryset = queryset[(page - 1) * limit : page * limit]
 
         return queryset

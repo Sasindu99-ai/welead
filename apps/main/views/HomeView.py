@@ -3,6 +3,8 @@ from typing import Any, Dict
 
 from apps.settings.services import CountryService, SettingService
 from vvecon.zorion.views import GetMapping, Mapping, View
+from ..enums import BannerPage
+from ..services import BannerService
 from ..settings import R
 
 __all__ = ["HomeView"]
@@ -14,21 +16,17 @@ class HomeView(View):
 
     settingService: SettingService = SettingService()
     countryService: CountryService = CountryService()
+    bannerService: BannerService = BannerService()
 
     def basicConfig(self):
         self.R.data.navigator.enabled = True
         self.R.data.footer.enabled = True
-        self.R.data.settings.mobileNumber = self.settingService.getByKey(
-            "hotline", "general", None
+        mobileNumber, email = self.settingService.getByKeys(
+            ["hotline", "hotmail"], "general", None
         )
-        self.R.data.settings.email = self.settingService.getByKey(
-            "hotmail", "general", None
-        )
+        self.R.data.settings.mobileNumber, self.R.data.settings.email = mobileNumber, email
         self.context = dict(
             countries=self.countryService.getAll(),
-            heroSectionBackground=self.settingService.getByKey(
-                "hero-section-background", "home", None
-            ),
         )
 
     @GetMapping("")
@@ -38,18 +36,19 @@ class HomeView(View):
         self.R.data.settings.head = "Home"
         self.R.data.navigator.activeTab = "home"
 
+        banners = self.bannerService.search(dict(
+            page=BannerPage.HOME,
+            pagination=dict(
+                sortBy=['order', 'created_at']
+            )
+        ))
+        vision, mission = self.settingService.getByKeys(keys=['vision', 'mission'], tag='general')
+
         context: Dict[str, Any] = dict(
-            hero=dict(
-                background="/media/settings/home/hero-section-background.png",
-                title="Hero Section Title Here",
-                subtitle="Here is the subtitle for hero section. you can change this using admin panel. Please change "
-                "this if you want to change this.  ",
-                primaryButton=dict(
-                    text="Learn More", classNames="btn-primary", link="#"
-                ),
-                secondaryButton=dict(
-                    text="Join Now", classNames="btn-secondary", link="#"
-                ),
+            banners=banners,
+            intro=dict(
+                vision=vision,
+                mission=mission
             ),
             event=dict(
                 background="/media/settings/home/event-section-background.png",

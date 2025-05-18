@@ -11,9 +11,9 @@ load:
 	export PATH="$$HOME/.local/bin:$$PATH"
 
 # Install dependencies
-.PHONY: install
-install:
-	$(POETRY) install
+.PHONY: sync
+sync:
+	$(POETRY) sync
 
 # Install pre-commit hooks
 .PHONY: install-pre-commit
@@ -29,12 +29,12 @@ lint:
 # Make migrations
 .PHONY: make-migrations
 make-migrations:
-	$(POETRY) run $(MANAGER) makemigrations authentication settings
+	$(MANAGER) makemigrations authentication settings main
 
 # Execute migrations
 .PHONY: execute-migrate
 execute-migrate:
-	$(POETRY) run $(MANAGER) migrate
+	$(MANAGER) migrate
 
 # Make and execute migrations
 .PHONY: migrate
@@ -42,7 +42,7 @@ migrate: make-migrations execute-migrate ;
 
 # Update project dependencies
 .PHONY: update
-update: install migrate install-pre-commit ;
+update: migrate install-pre-commit ;
 
 # Run the Django development server
 .PHONY: dev
