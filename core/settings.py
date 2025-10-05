@@ -16,6 +16,7 @@ INSTALLED_APPS = (
         "apps.authentication.apps.AuthenticationConfig",
         "apps.main.apps.MainConfig",
         "apps.settings.apps.SettingsConfig",
+        "apps.events.apps.EventConfig",
     ]
     + INSTALLED_APPS
     + [
@@ -104,7 +105,7 @@ APPEND_SLASH = True
 if "JAZZMIN_SETTINGS" not in globals():
     JAZZMIN_SETTINGS = {}
 
-JAZZMIN_SETTINGS["site_title"] = "Welead Admin"
+JAZZMIN_SETTINGS["site_title"] = "Welead"
 JAZZMIN_SETTINGS["site_header"] = "Welead"
 JAZZMIN_SETTINGS["site_brand"] = "Welead"
 JAZZMIN_SETTINGS["welcome_sign"] = "Welcome to Welead Admin"
@@ -124,4 +125,9 @@ JAZZMIN_SETTINGS["icons"] = {
     "socialaccount.socialaccount": "fas fa-user",
     "socialaccount.socialtoken": "fas fa-key",
     "socialaccount.socialapp": "fas fa-user",
+    "main.banner": "fas fa-image",
+    "events.audience": "fas fa-users",
+    "events.event": "fas fa-calendar",
+    "events.eventlabel": "fas fa-tag",
+    "events.sponsor": "fas fa-user",
 }

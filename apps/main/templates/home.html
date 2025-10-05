@@ -328,8 +328,15 @@
     <div class="swiper movie-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.visionBg.path %}') center center / cover;">
-            <span>Our Vision</span>
-            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ intro.vision|safe }}</span>
+            <div class="h-100 p-4 d-flex flex-column justify-content-center align-items-center w-100 w-md-75 w-lg-50" style="transition: all 0.3s ease-in-out">
+                <div class="text-center mb-2 mb-lg-3 mb-md-4">
+                    <i class="bi bi-eye-fill text-light fs-48 fs-lg-40 fs-md-32 fs-sm-24"></i>
+                </div>
+                <span>Our Vision</span>
+                <p class="fs-5 fw-light lh-1 mb-4" style="line-height: 1.6;">
+                    Enhance the career experience of everyone we empower.
+                </p>
+            </div>
         </div>
         <div class="swiper-slide rounded-4" data-type="video" style="position: relative;">
           <video id="introVideo" playsinline autoplay muted loop style="width: 100%; object-fit: cover; border-radius: 16px; aspect-ratio: 16/9 !important;" preload="auto" poster="{% static R.images.introThumbnail.path %}">
@@ -351,8 +358,15 @@
           ">🔇</button>
         </div>
         <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.missionBg.path %}') center center / cover;">
-            <span>Our Mission</span>
-            <span class="fs-5 fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ intro.mission|safe }}</span>
+            <div class="h-100 p-4 d-flex flex-column justify-content-center align-items-center w-100 w-md-75 w-lg-50" style="transition: all 0.3s ease-in-out">
+                <div class="text-center mb-4">
+                    <i class="bi bi-bullseye text-light" style="font-size: 48px;"></i>
+                </div>
+                <span>Our Mission</span>
+                <p class="fs-5 fw-light lh-1 mb-4" style="line-height: 1.6;">
+                    {{ intro.mission|safe }}
+                </p>
+            </div>
         </div>
       </div>
     </div>
@@ -360,9 +374,9 @@
 <section id="event-section" class="event-section profile-cover" style="overflow-y: clip;">
     <div class="profile-cover-img hero-section event-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ event.background }})"></div>
     <div class="container d-flex flex-column text-white justify-content-center align-items-start position-absolute bottom-50 top-50 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100 gap-3">
-		<h2 class="fw-light fs-1 lh-1">OUR EVENTS</h2>
-        <h1 class="fw-semibold lh-1 mb-2" style="font-size: 48px;">{{ event.title }}</h1>
-		<p class="fs-sm fw-light lh-1 mb-4 w-100 w-md-75 w-lg-50">{{ event.subtitle }}</p>
+		<h2 class="fw-light fs-1 lh-1">UPCOMING EVENT</h2>
+        <h1 class="fw-semibold lh-1 mb-2" style="font-size: 48px;">{{ upcomingEvent.name }}</h1>
+		<p class="fs-3 fw-light lh-1_2 mb-4 w-100 w-md-75 w-lg-50">{{ upcomingEvent.shortDescription }}</p>
 		<div class="d-flex flex-row gap-3" id="count-down">
 			<div class="d-flex flex-column gap-1">
 				<span class="fw-semibold lh-1" style="font-size: 36px;" id="eventRemainingDays">12</span>
@@ -382,7 +396,7 @@
 			</div>
 		</div>
 		<div class="d-flex flex-row gap-2">
-			<a type="button" class="btn btn-primary me-2" href="{{ event.link }}">Learn More</a>
+			<a type="button" class="btn btn-primary me-2" href="#">Learn More</a>
 		</div>
     </div>
 </section>
@@ -391,77 +405,35 @@
 	<p class="fs-5 mb-4 text-center" style="max-width: 768px;">Have questions? We're here to help you on your English learning journey.</p>
 	<div class="d-flex flex-column w-100">
 			<ul class="custom-tabs nav nav-tabs justify-content-center border-bottom-0">
-				<li class="nav-item m-0">
-					<a href="#audience-1" class="nav-link active" data-bs-toggle="tab">
-						Audience 1
-					</a>
-				</li>
-				<li class="nav-item m-0">
-					<a href="#audience-2" class="nav-link" data-bs-toggle="tab">
-						Audience 2
-					</a>
-				</li>
-				<li class="nav-item m-0">
-					<a href="#audience-3" class="nav-link" data-bs-toggle="tab">
-						Audience 3
-					</a>
-				</li>
+                {% for audience in audiences %}
+                    <li class="nav-item m-0">
+                        <a href="#audience-{{ audience.id }}" class="nav-link {% if forloop.first %}active{% endif %}" data-bs-toggle="tab">
+                            {{ audience.name }}
+                        </a>
+                    </li>
+                {% endfor %}
 			</ul>
 			<div class="tab-content mt-3 w-100">
-				<div class="tab-pane fade show active w-100" id="audience-1">
-					<div class="swiper w-100" id="audience-1-programs">
-						<div class="swiper-wrapper" style="padding-bottom: 16px;">
-							{% for _ in ''|ljust:5 %}
-								<div class="swiper-slide pt-2" style="max-width: 360px;">
-									<div class="card w-100 hover-scale">
-										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
-										<div class="card-body d-flex flex-column justify-content-center align-items-start">
-											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
-											<p class="fs-xs mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore es </p>
-											<button class="btn btn-primary" style="padding: 4px 16px;">Read More</button>
-										</div>
-									</div>
-								</div>
-							{% endfor %}
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade w-100" id="audience-2">
-					<div class="swiper w-100" id="audience-2-programs">
-						<div class="swiper-wrapper" style="padding-bottom: 16px;">
-							{% for _ in ''|ljust:5 %}
-								<div class="swiper-slide pt-2" style="max-width: 360px;">
-									<div class="card w-100 hover-scale">
-										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
-										<div class="card-body d-flex flex-column justify-content-center align-items-start">
-											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
-											<p class="fs-xs mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore es </p>
-											<button class="btn btn-primary" style="padding: 4px 16px;">Read More</button>
-										</div>
-									</div>
-								</div>
-							{% endfor %}
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade w-100" id="audience-3">
-					<div class="swiper w-100" id="audience-3-programs">
-						<div class="swiper-wrapper" style="padding-bottom: 16px;">
-							{% for _ in ''|ljust:5 %}
-								<div class="swiper-slide pt-2" style="max-width: 360px;">
-									<div class="card w-100 hover-scale">
-										<img src="{% static R.images.programSample.path %}" class="card-img-top w-100" style="object-fit: none;" alt="Program">
-										<div class="card-body d-flex flex-column justify-content-center align-items-start">
-											<h4 class="fs-5 fw-bold lh-1 mb-1">Program Name</h4>
-											<p class="fs-xs mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore es </p>
-											<button class="btn btn-primary" style="padding: 4px 16px;">Read More</button>
-										</div>
-									</div>
-								</div>
-							{% endfor %}
-						</div>
-					</div>
-				</div>
+                {% for audience in audiences %}
+                    <div class="tab-pane fade show {% if forloop.first %}active{% endif %} w-100" id="audience-{{ audience.id }}">
+                        <div class="swiper w-100" id="audience-{{ audience.id }}-programs">
+                            <div class="swiper-wrapper" style="padding-bottom: 16px;">
+                                {% for event in audience.events.all %}
+                                    <div class="swiper-slide pt-2" style="max-width: 360px; height: 100%;">
+                                        <div class="card w-100 hover-scale" style="height: 100%;">
+                                            <img src="{{ event.cover.url }}" class="card-img-top w-100" style="object-fit: cover;" alt="{{ event.name }}">
+                                            <div class="card-body d-flex flex-column justify-content-center align-items-start" style="height: 100%;">
+                                                <h4 class="fs-5 fw-bold lh-1 mb-1">{{ event.name }}</h4>
+                                                <p class="fs-xs mb-2" style="height: 100%;">{{ event.shortDescription }}</p>
+                                                <button class="btn btn-primary" style="padding: 4px 16px;">Read More</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
 			</div>
 		</div>
 </section>
@@ -469,92 +441,145 @@
 	<div class="profile-cover-img hero-section faq-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ faq.background }})"></div>
 	<div class="d-flex flex-column text-white justify-content-center align-items-start position-absolute top-0 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100 h-100" style="background: #0A7EBFC4;">
 		<div class="container d-flex flex-column text-white justify-content-center align-items-center gap-3">
-			<h1 class="fw-medium lh-1 mb-0 text-center" style="font-size: 50px;">FAQS</h1>
-			<p class="fs-5 mb-5 text-center">Find answers to common questions about ESP Academy.</p>
-			<div class="d-flex flex-column flex-md-row text-dark w-100 gap-2">
-				<div class="d-flex flex-column w-100 gap-2">
-					{% for _ in ''|ljust:5 %}
-						<a href="#" class="d-flex flex-row w-100 justify-content-between card card-body px-3 py-2 mb-0 cursor-pointer">
-							<span>What are the qualifications of your tutors?</span>
-							<i class="bi bi-chevron-right"></i>
-						</a>
-					{% endfor %}
-				</div>
-				<div class="d-flex flex-column w-100 gap-2">
-					{% for _ in ''|ljust:5 %}
-						<a href="#" class="d-flex flex-row w-100 justify-content-between card card-body px-3 py-2 mb-0 cursor-pointer">
-							<span>What are the qualifications of your tutors?</span>
-							<i class="bi bi-chevron-right"></i>
-						</a>
-					{% endfor %}
-				</div>
-			</div>
+			<!-- Section Title -->
+            <h1 class="fw-medium text-center lh-1 mb-2 animate__animated" data-animate="animate__fadeInDown" style="font-size: 48px;">
+                Frequently Asked Questions
+            </h1>
+
+            <!-- Section Subtitle -->
+            <p class="fs-5 text-center fw-normal mb-5 animate__animated" data-animate="animate__fadeInUp" style="max-width: 600px; animation-delay: 100ms;">
+                Find answers to common questions about our programs, events, and services.
+            </p>
+
+            <!-- FAQ Items -->
+            <div class="row w-100" style="max-width: 1000px;">
+                {% for faq in faq.faqs %}
+                    <div class="col-lg-6 mb-4">
+                        <div class="faq-item animate__animated" data-animate="animate__fadeInUp" style="animation-delay: 200ms;">
+                            <div class="faq-question d-flex align-items-center justify-content-between p-3 rounded-3" style="background: rgba(255, 255, 255, 0.60); cursor: pointer;" onclick="const answer = this.nextElementSibling; const icon = this.querySelector('i'); if (answer.style.display === 'block') { window.unToggleAllFaqs(); answer.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; } else { window.unToggleAllFaqs(); answer.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; }">
+                                <h5 class="fw-bold mb-0 text-dark">{{ faq.question }}</h5>
+                                <i class="bi bi-chevron-down" style="color: #4669f5; font-size: 20px; transition: transform 0.3s ease;"></i>
+                            </div>
+                            <div class="faq-answer p-3" style="background: rgba(255, 255, 255, 0.40); border-left: 3px solid #0a7ebf; margin-top: 1px; display: none;">
+                                <p class="text-dark mb-0" style="font-size: 14px; line-height: 1.6;">
+                                    {{ faq.answer }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 		</div>
 	</div>
 </section>
-<section id="contact-section" class="contact-section container d-flex flex-column justify-content-center align-items-center py-5">
-	<h1 class="fw-medium lh-1 mb-2 text-center" style="font-size: 50px;">Get in touch with us</h1>
-	<p class="fs-5 mb-4 text-center" style="max-width: 768px;">Have questions? We're here to help you on your English learning journey.</p>
-	<div class="d-flex flex-column-reverse flex-md-row gap-2 w-100">
-		<div class="d-flex flex-column w-100">
-			<div class="card bg-primary card-body text-white gap-4">
-				<div class="d-flex flex-row align-items-center">
-					<i class="bi bi-envelope bg-light h-32px w-32px rounded-5 text-black text-center" style="line-height: 2.4;"></i>
-					<div class="d-flex flex-column ms-2">
-						<span class="fw-medium fs-6 lh-1 mb-1">Email Address</span>
-						<span class="opacity-75 fs-base lh-1">support@we-lead.com</span>
-					</div>
-				</div>
-				<div class="d-flex flex-row align-items-center">
-					<i class="bi bi-phone bg-light h-32px w-32px rounded-5 text-black text-center" style="line-height: 2.4;"></i>
-					<div class="d-flex flex-column ms-2">
-						<span class="fw-medium fs-6 lh-1 mb-1">Mobile Number</span>
-						<span class="opacity-75 fs-base lh-1">+1-800-123-4567</span>
-					</div>
-				</div>
-				<div class="d-flex flex-row align-items-center">
-					<i class="bi bi-geo-alt bg-light h-32px w-32px rounded-5 text-black text-center" style="line-height: 2.4;"></i>
-					<div class="d-flex flex-column ms-2">
-						<span class="fw-medium fs-6 lh-1 mb-1">Address</span>
-						<span class="opacity-75 fs-base lh-1">123 English Lane, Learning City, Edutopia</span>
-					</div>
-				</div>
-			</div>
-			<div class="d-flex flex-column h-100">
+<section class="contact-section d-flex flex-column justify-content-center align-items-center py-5" style="background: transparent;">
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+        <!-- Section Title -->
+        <h1 class="fw-medium text-center lh-1 mb-2 animate__animated" data-animate="animate__fadeInDown" style="font-size: 48px;">
+            Contact Us
+        </h1>
 
-			</div>
-		</div>
-		<div class="d-flex flex-column card card-body w-100">
-			<div class="row">
-				<label class="col-12 col-sm-6 form-label text-dark text-muted fs-sm">First Name<span class="text-danger">*</span>
-					<input type="text" class="form-control input-field" id="firstName" name="firstName" placeholder="John" value="{% if request.user.is_authenticated %}{{ request.user.firstName }}{% endif %}" required>
-				</label>
-			 	<label class="col-12 col-sm-6 form-label text-dark text-muted fs-sm">Last Name<span class="text-danger">*</span>
-					<input type="text" class="form-control input-field" id="lastName" name="lastName" placeholder="Smith" value="{% if request.user.is_authenticated %}{{ request.user.lastName }}{% endif %}" required>
-				</label>
-			</div>
-			<div class="row">
-				<div class="col-12 col-md-6 text-dark">
-					<label for="mobileNumber">Mobile Number<span class="text-danger">*</span></label>
-					<div class="input-group">
-						<select id="countryCode" name="countryCode" class="form-control select text-end p-0" data-minimum-results-for-search="Infinity" data-width="auto"  style="background: #F1F0EE; !important; max-width: max-content !important; border: 0 solid transparent !important; border-top-left-radius: 8px; border-bottom-left-radius: 8px;" aria-label="Country Code" required>
-							{% for country in countries %}
-								<option value="{{ country.code }}" {% if request.user.is_authenticated and request.user.countryCode == country.code %}selected{% endif %}>{{ country.emoji }} +{{ country.code }}</option>
-							{% endfor %}
-						</select>
-						<input type="text" id="mobileNumber" name="mobileNumber" class="form-control" placeholder="1234567890"  style="background: #F1F0EE; !important; border: 0 solid transparent !important; border-top-right-radius: 8px; border-bottom-right-radius: 8px;" inputmode="numeric" value="{% if request.user.is_authenticated and request.user.mobileNumber %}{{ request.user.mobileNumberWithLength }}{% endif %}" required>
-					</div>
-				</div>
-				<label class="col-12 col-md-6 form-label text-dark text-muted fs-sm">Email Address<span class="text-danger">*</span>
-					<input type="text" class="form-control input-field" id="email" name="email" placeholder="john@gmail.com" value="{% if request.user.is_authenticated %}{{ request.user.lastName }}{% endif %}" required>
-				</label>
-			</div>
-			<label class="col-12 form-label text-dark text-muted fs-sm">Message<span class="text-danger">*</span>
-				<textarea class="form-control input-field" id="message" name="message" placeholder="What can we help you with?" style="height: 200px; max-height: 200px;" required></textarea>
-			</label>
-			<button class="btn btn-primary w-100">Submit</button>
-		</div>
-	</div>
+        <!-- Section Subtitle -->
+        <p class="fs-5 text-center fw-normal mb-5 animate__animated" data-animate="animate__fadeInUp" style="max-width: 600px; animation-delay: 100ms;">
+            Get in touch with us for any inquiries, support, or feedback. We're here to help!
+        </p>
+
+        <div class="row w-100">
+            <!-- Left Column - Contact Information -->
+            <div class="col-lg-6 mb-4">
+                <div class="contact-info-card p-4 rounded-4 shadow-sm bg-primary text-light" style="border: 1px solid #e9ecef;">
+                    <h2 class="fw-bold mb-4" style="font-size: 32px;">Contact Information</h2>
+
+                    <!-- Hotline -->
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-telephone-fill" style="font-size: 24px;"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Hotline</h5>
+                            <p class="mb-0" style="font-size: 16px;">+94 12 345 6789</p>
+                            <p class="mb-0" style="font-size: 14px;">Response Immediately</p>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-whatsapp" style="font-size: 24px;"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">WhatsApp</h5>
+                            <p class="mb-0" style="font-size: 16px;">+94 12 345 6789</p>
+                            <p class="mb-0" style="font-size: 14px;">Response immediately</p>
+                        </div>
+                    </div>
+
+                    <!-- Head Office -->
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-building" style="font-size: 24px;"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Address</h5>
+                            <p class="mb-1" style="font-size: 14px; line-height: 1.5;">
+                                University of Peradeniya, Peradeniya, 20400<br>
+                                Sri Lanka
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="d-flex align-items-center">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-envelope" style="font-size: 24px;"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Email</h5>
+                            <p class="mb-0" style="font-size: 16px;">info@we-lead.com</p>
+                            <p class="mb-0" style="font-size: 14px;">Response within 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Main Branch Location -->
+            <div class="col-lg-6">
+                <div class="branch-card rounded-4 shadow-sm" style="background: #f8f9fa; border: 1px solid #e9ecef;">
+                    <div class="d-flex flex-column">
+                        <!-- Branch Header -->
+                        <div class="p-3 border-bottom">
+                            <h5 class="fw-bold text-dark mb-2">Visit Our Head Office   <span class="badge bg-primary text-light mb-2" style="font-size: 12px;">Main Branch</span></h5>
+                        </div>
+
+                        <!-- Google Map -->
+                        <div class="flex-grow-1 p-2">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5608.791802214587!2d80.59538099974372!3d7.256795982848156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae368deaaaaaaab%3A0xb5476b88282d47fb!2sUniversity%20of%20Peradeniya!5e0!3m2!1sen!2slk!4v1759570051949!5m2!1sen!2slk" width="100%" height="278" style="border-radius: 8px; border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+
+                        <!-- Branch Details -->
+                        <div class="p-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-geo-alt text-primary me-2"></i>
+                                <p class="text-muted mb-0" style="font-size: 14px;">University of Peradeniya, Peradeniya, 20400 Sri Lanka.</p>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-telephone text-primary me-2"></i>
+                                <p class="text-muted mb-0" style="font-size: 14px;">+94 12 345 6789</p>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-envelope text-primary me-2"></i>
+                                <p class="text-muted mb-0" style="font-size: 14px;">info@we-lead.com</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-clock text-primary me-2"></i>
+                                <p class="text-muted mb-0" style="font-size: 14px;">Mon - Fri: 5:00 PM - 7:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <section id="sponsors-section" class="sponsors-section d-flex flex-column justify-content-center align-items-center py-5 bg-primary">
     <div class="container">
@@ -573,6 +598,17 @@
 {{ block.super }}
 	<script nonce="{{ nonce }}">
 		document.addEventListener('DOMContentLoaded', function() {
+            function unToggleAllFaqs() {
+                document.querySelectorAll('.faq-answer').forEach(answer => {
+                    answer.style.display = 'none';
+                });
+                document.querySelectorAll('.faq-question i').forEach(icon => {
+                    icon.style.transform = 'rotate(0deg)';
+                });
+            }
+
+            window.unToggleAllFaqs = unToggleAllFaqs;
+
 			function animateCurrentSlide(slide) {
 				if (!slide) return;
 				const title = slide.querySelector("h1");
@@ -665,33 +701,17 @@
               startAutoplay();
             });
 
-			let audience1Programs = new Swiper('#audience-1-programs', {
-				slidesPerView: 'auto',
-				spaceBetween: 16,
-				loop: true,
-				autoplay: {
-					delay: 2000,
-					disableOnInteraction: false,
-				}
-			});
-			let audience2Programs = new Swiper('#audience-2-programs', {
-				slidesPerView: 'auto',
-				spaceBetween: 16,
-				loop: true,
-				autoplay: {
-					delay: 2000,
-					disableOnInteraction: false,
-				}
-			});
-			let audience3Programs = new Swiper('#audience-3-programs', {
-				slidesPerView: 'auto',
-				spaceBetween: 16,
-				loop: true,
-				autoplay: {
-					delay: 2000,
-					disableOnInteraction: false,
-				}
-			});
+            {% for audience in audiences %}
+                new Swiper('#audience-{{ audience.id }}-programs', {
+                    slidesPerView: 'auto',
+                    spaceBetween: 16,
+                    loop: true,
+                    autoplay: {
+                        delay: 2000,
+                        disableOnInteraction: false,
+                    }
+                });
+            {% endfor %}
 
             let sponsors = new Swiper('#sponsors', {
                 slidesPerView: 'auto',

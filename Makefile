@@ -29,7 +29,7 @@ lint:
 # Make migrations
 .PHONY: make-migrations
 make-migrations:
-	$(MANAGER) makemigrations authentication settings main
+	$(MANAGER) makemigrations authentication settings main events
 
 # Execute migrations
 .PHONY: execute-migrate

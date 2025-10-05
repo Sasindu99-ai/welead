@@ -197,3 +197,850 @@ body{
 .text-justify {
     text-align: justify !important;
 }
+
+.lh-1_2 {
+    line-height: 1.2 !important;
+}
+
+/* Font Sizes */
+
+.fs-10 {
+    font-size: 10px !important;
+}
+
+.fs-11 {
+    font-size: 11px !important;
+}
+
+.fs-12 {
+    font-size: 12px !important;
+}
+
+.fs-13 {
+    font-size: 13px !important;
+}
+
+.fs-14 {
+    font-size: 14px !important;
+}
+
+.fs-15 {
+    font-size: 15px !important;
+}
+
+.fs-16 {
+    font-size: 16px !important;
+}
+
+.fs-17 {
+    font-size: 17px !important;
+}
+
+.fs-18 {
+    font-size: 18px !important;
+}
+
+.fs-19 {
+    font-size: 19px !important;
+}
+
+.fs-20 {
+    font-size: 20px !important;
+}
+
+.fs-22 {
+    font-size: 22px !important;
+}
+
+.fs-24 {
+    font-size: 24px !important;
+}
+
+.fs-26 {
+    font-size: 26px !important;
+}
+
+.fs-28 {
+    font-size: 28px !important;
+}
+
+.fs-30 {
+    font-size: 30px !important;
+}
+
+.fs-32 {
+    font-size: 32px !important;
+}
+
+.fs-36 {
+    font-size: 36px !important;
+}
+
+.fs-40 {
+    font-size: 40px !important;
+}
+
+.fs-48 {
+    font-size: 48px !important;
+}
+
+.fs-56 {
+    font-size: 56px !important;
+}
+
+.fs-64 {
+    font-size: 64px !important;
+}
+
+.fs-72 {
+    font-size: 72px !important;
+}
+
+@media (max-width: 576px) {
+    .fs-sm-10 {
+        font-size: 10px !important;
+    }
+
+    .fs-sm-11 {
+        font-size: 11px !important;
+    }
+
+    .fs-sm-12 {
+        font-size: 12px !important;
+    }
+
+    .fs-sm-13 {
+        font-size: 13px !important;
+    }
+
+    .fs-sm-14 {
+        font-size: 14px !important;
+    }
+
+    .fs-sm-15 {
+        font-size: 15px !important;
+    }
+
+    .fs-sm-16 {
+        font-size: 16px !important;
+    }
+
+    .fs-sm-17 {
+        font-size: 17px !important;
+    }
+
+    .fs-sm-18 {
+        font-size: 18px !important;
+    }
+
+    .fs-sm-19 {
+        font-size: 19px !important;
+    }
+
+    .fs-sm-20 {
+        font-size: 20px !important;
+    }
+
+    .fs-sm-22 {
+        font-size: 22px !important;
+    }
+
+    .fs-sm-24 {
+        font-size: 24px !important;
+    }
+
+    .fs-sm-26 {
+        font-size: 26px !important;
+    }
+
+    .fs-sm-28 {
+        font-size: 28px !important;
+    }
+
+    .fs-sm-30 {
+        font-size: 30px !important;
+    }
+
+    .fs-sm-32 {
+        font-size: 32px !important;
+    }
+
+    .fs-sm-36 {
+        font-size: 36px !important;
+    }
+
+    .fs-sm-40 {
+        font-size: 40px !important;
+    }
+
+    .fs-sm-48 {
+        font-size: 48px !important;
+    }
+
+    .fs-sm-56 {
+        font-size: 56px !important;
+    }
+
+    .fs-sm-64 {
+        font-size: 64px !important;
+    }
+
+    .fs-sm-72 {
+        font-size: 72px !important;
+    }
+
+    /* Margin adjustments for small screens */
+    .mb-sm-1 {
+        margin-bottom: 0.25rem !important;
+    }
+
+    .mb-sm-2 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .mb-sm-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .mb-sm-4 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .mb-sm-5 {
+        margin-bottom: 3rem !important;
+    }
+
+    .mt-sm-1 {
+        margin-top: 0.25rem !important;
+    }
+
+    .mt-sm-2 {
+        margin-top: 0.5rem !important;
+    }
+
+    .mt-sm-3 {
+        margin-top: 1rem !important;
+    }
+
+    .mt-sm-4 {
+        margin-top: 1.5rem !important;
+    }
+
+    .mt-sm-5 {
+        margin-top: 3rem !important;
+    }
+
+    .mx-sm-1 {
+        margin-left: 0.25rem !important;
+        margin-right: 0.25rem !important;
+    }
+
+    .mx-sm-2 {
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+
+    .mx-sm-3 {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+
+    .mx-sm-4 {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+    }
+
+    .mx-sm-5 {
+        margin-left: 3rem !important;
+        margin-right: 3rem !important;
+    }
+
+    .my-sm-1 {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    .my-sm-2 {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .my-sm-3 {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .my-sm-4 {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .my-sm-5 {
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
+    }
+
+    .m-sm-1 {
+        margin: 0.25rem !important;
+    }
+
+    .m-sm-2 {
+        margin: 0.5rem !important;
+    }
+
+    .m-sm-3 {
+        margin: 1rem !important;
+    }
+
+    .m-sm-4 {
+        margin: 1.5rem !important;
+    }
+
+    .m-sm-5 {
+        margin: 3rem !important;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .fs-md-10 {
+        font-size: 10px !important;
+    }
+
+    .fs-md-11 {
+        font-size: 11px !important;
+    }
+
+    .fs-md-12 {
+        font-size: 12px !important;
+    }
+
+    .fs-md-13 {
+        font-size: 13px !important;
+    }
+
+    .fs-md-14 {
+        font-size: 14px !important;
+    }
+
+    .fs-md-15 {
+        font-size: 15px !important;
+    }
+
+    .fs-md-16 {
+        font-size: 16px !important;
+    }
+
+    .fs-md-17 {
+        font-size: 17px !important;
+    }
+
+    .fs-md-18 {
+        font-size: 18px !important;
+    }
+
+    .fs-md-19 {
+        font-size: 19px !important;
+    }
+
+    .fs-md-20 {
+        font-size: 20px !important;
+    }
+
+    .fs-md-22 {
+        font-size: 22px !important;
+    }
+
+    .fs-md-24 {
+        font-size: 24px !important;
+    }
+
+    .fs-md-26 {
+        font-size: 26px !important;
+    }
+
+    .fs-md-28 {
+        font-size: 28px !important;
+    }
+
+    .fs-md-30 {
+        font-size: 30px !important;
+    }
+
+    .fs-md-32 {
+        font-size: 32px !important;
+    }
+
+    .fs-md-36 {
+        font-size: 36px !important;
+    }
+
+    .fs-md-40 {
+        font-size: 40px !important;
+    }
+
+    .fs-md-48 {
+        font-size: 48px !important;
+    }
+
+    .fs-md-56 {
+        font-size: 56px !important;
+    }
+
+    .fs-md-64 {
+        font-size: 64px !important;
+    }
+
+    .fs-md-72 {
+        font-size: 72px !important;
+    }
+
+    /* Margin adjustments for medium screens */
+    .mb-md-1 {
+        margin-bottom: 0.25rem !important;
+    }
+    .mb-md-2 {
+        margin-bottom: 0.5rem !important;
+    }
+    .mb-md-3 {
+        margin-bottom: 1rem !important;
+    }
+    .mb-md-4 {
+        margin-bottom: 1.5rem !important;
+    }
+    .mb-md-5 {
+        margin-bottom: 3rem !important;
+    }
+    .mt-md-1 {
+        margin-top: 0.25rem !important;
+    }
+    .mt-md-2 {
+        margin-top: 0.5rem !important;
+    }
+    .mt-md-3 {
+        margin-top: 1rem !important;
+    }
+    .mt-md-4 {
+        margin-top: 1.5rem !important;
+    }
+    .mt-md-5 {
+        margin-top: 3rem !important;
+    }
+    .mx-md-1 {
+        margin-left: 0.25rem !important;
+        margin-right: 0.25rem !important;
+    }
+    .mx-md-2 {
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+    .mx-md-3 {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+    .mx-md-4 {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+    }
+    .mx-md-5 {
+        margin-left: 3rem !important;
+        margin-right: 3rem !important;
+    }
+    .my-md-1 {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    .my-md-2 {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .my-md-3 {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    .my-md-4 {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .my-md-5 {
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
+    }
+    .m-md-1 {
+        margin: 0.25rem !important;
+    }
+    .m-md-2 {
+        margin: 0.5rem !important;
+    }
+    .m-md-3 {
+        margin: 1rem !important;
+    }
+    .m-md-4 {
+        margin: 1.5rem !important;
+    }
+    .m-md-5 {
+        margin: 3rem !important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .fs-lg-10 {
+        font-size: 10px !important;
+    }
+
+    .fs-lg-11 {
+        font-size: 11px !important;
+    }
+
+    .fs-lg-12 {
+        font-size: 12px !important;
+    }
+
+    .fs-lg-13 {
+        font-size: 13px !important;
+    }
+
+    .fs-lg-14 {
+        font-size: 14px !important;
+    }
+
+    .fs-lg-15 {
+        font-size: 15px !important;
+    }
+
+    .fs-lg-16 {
+        font-size: 16px !important;
+    }
+
+    .fs-lg-17 {
+        font-size: 17px !important;
+    }
+
+    .fs-lg-18 {
+        font-size: 18px !important;
+    }
+
+    .fs-lg-19 {
+        font-size: 19px !important;
+    }
+
+    .fs-lg-20 {
+        font-size: 20px !important;
+    }
+
+    .fs-lg-22 {
+        font-size: 22px !important;
+    }
+
+    .fs-lg-24 {
+        font-size: 24px !important;
+    }
+
+    .fs-lg-26 {
+        font-size: 26px !important;
+    }
+
+    .fs-lg-28 {
+        font-size: 28px !important;
+    }
+
+    .fs-lg-30 {
+        font-size: 30px !important;
+    }
+
+    .fs-lg-32 {
+        font-size: 32px !important;
+    }
+
+    .fs-lg-36 {
+        font-size: 36px !important;
+    }
+
+    .fs-lg-40 {
+        font-size: 40px !important;
+    }
+
+    .fs-lg-48 {
+        font-size: 48px !important;
+    }
+
+    .fs-lg-56 {
+        font-size: 56px !important;
+    }
+
+    .fs-lg-64 {
+        font-size: 64px !important;
+    }
+
+    .fs-lg-72 {
+        font-size: 72px !important;
+    }
+
+    /* Margin adjustments for large screens */
+    .mb-lg-1 {
+        margin-bottom: 0.25rem !important;
+    }
+    .mb-lg-2 {
+        margin-bottom: 0.5rem !important;
+    }
+    .mb-lg-3 {
+        margin-bottom: 1rem !important;
+    }
+    .mb-lg-4 {
+        margin-bottom: 1.5rem !important;
+    }
+    .mb-lg-5 {
+        margin-bottom: 3rem !important;
+    }
+    .mt-lg-1 {
+        margin-top: 0.25rem !important;
+    }
+    .mt-lg-2 {
+        margin-top: 0.5rem !important;
+    }
+    .mt-lg-3 {
+        margin-top: 1rem !important;
+    }
+    .mt-lg-4 {
+        margin-top: 1.5rem !important;
+    }
+    .mt-lg-5 {
+        margin-top: 3rem !important;
+    }
+    .mx-lg-1 {
+        margin-left: 0.25rem !important;
+        margin-right: 0.25rem !important;
+    }
+    .mx-lg-2 {
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+    .mx-lg-3 {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+    .mx-lg-4 {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+    }
+    .mx-lg-5 {
+        margin-left: 3rem !important;
+        margin-right: 3rem !important;
+    }
+    .my-lg-1 {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    .my-lg-2 {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .my-lg-3 {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    .my-lg-4 {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .my-lg-5 {
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
+    }
+    .m-lg-1 {
+        margin: 0.25rem !important;
+    }
+    .m-lg-2 {
+        margin: 0.5rem !important;
+    }
+    .m-lg-3 {
+        margin: 1rem !important;
+    }
+    .m-lg-4 {
+        margin: 1.5rem !important;
+    }
+    .m-lg-5 {
+        margin: 3rem !important;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    .fs-xl-10 {
+        font-size: 10px !important;
+    }
+
+    .fs-xl-11 {
+        font-size: 11px !important;
+    }
+
+    .fs-xl-12 {
+        font-size: 12px !important;
+    }
+
+    .fs-xl-13 {
+        font-size: 13px !important;
+    }
+
+    .fs-xl-14 {
+        font-size: 14px !important;
+    }
+
+    .fs-xl-15 {
+        font-size: 15px !important;
+    }
+
+    .fs-xl-16 {
+        font-size: 16px !important;
+    }
+
+    .fs-xl-17 {
+        font-size: 17px !important;
+    }
+
+    .fs-xl-18 {
+        font-size: 18px !important;
+    }
+
+    .fs-xl-19 {
+        font-size: 19px !important;
+    }
+
+    .fs-xl-20 {
+        font-size: 20px !important;
+    }
+
+    .fs-xl-22 {
+        font-size: 22px !important;
+    }
+
+    .fs-xl-24 {
+        font-size: 24px !important;
+    }
+
+    .fs-xl-26 {
+        font-size: 26px !important;
+    }
+
+    .fs-xl-28 {
+        font-size: 28px !important;
+    }
+
+    .fs-xl-30 {
+        font-size: 30px !important;
+    }
+
+    .fs-xl-32 {
+        font-size: 32px !important;
+    }
+
+    .fs-xl-36 {
+        font-size: 36px !important;
+    }
+
+    .fs-xl-40 {
+        font-size: 40px !important;
+    }
+
+    .fs-xl-48 {
+        font-size: 48px !important;
+    }
+
+    .fs-xl-56 {
+        font-size: 56px !important;
+    }
+
+    .fs-xl-64 {
+        font-size: 64px !important;
+    }
+
+    .fs-xl-72 {
+        font-size: 72px !important;
+    }
+
+    /* Margin adjustments for extra large screens */
+    .mb-xl-1 {
+        margin-bottom: 0.25rem !important;
+    }
+    .mb-xl-2 {
+        margin-bottom: 0.5rem !important;
+    }
+    .mb-xl-3 {
+        margin-bottom: 1rem !important;
+    }
+    .mb-xl-4 {
+        margin-bottom: 1.5rem !important;
+    }
+    .mb-xl-5 {
+        margin-bottom: 3rem !important;
+    }
+    .mt-xl-1 {
+        margin-top: 0.25rem !important;
+    }
+    .mt-xl-2 {
+        margin-top: 0.5rem !important;
+    }
+    .mt-xl-3 {
+        margin-top: 1rem !important;
+    }
+    .mt-xl-4 {
+        margin-top: 1.5rem !important;
+    }
+    .mt-xl-5 {
+        margin-top: 3rem !important;
+    }
+    .mx-xl-1 {
+        margin-left: 0.25rem !important;
+        margin-right: 0.25rem !important;
+    }
+    .mx-xl-2 {
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+    .mx-xl-3 {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+    .mx-xl-4 {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+    }
+    .mx-xl-5 {
+        margin-left: 3rem !important;
+        margin-right: 3rem !important;
+    }
+    .my-xl-1 {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    .my-xl-2 {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .my-xl-3 {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    .my-xl-4 {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    .my-xl-5 {
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
+    }
+    .m-xl-1 {
+        margin: 0.25rem !important;
+    }
+    .m-xl-2 {
+        margin: 0.5rem !important;
+    }
+    .m-xl-3 {
+        margin: 1rem !important;
+    }
+    .m-xl-4 {
+        margin: 1.5rem !important;
+    }
+    .m-xl-5 {
+        margin: 3rem !important;
+    }
+}
+
