@@ -31,5 +31,8 @@ class Images(utils.Images):
         missionBg='missionBg.png',
         introThumbnail='introThumbnail.png',
         arrowNext='arrowNext.png',
-        arrowPrev='arrowPrev.png'
+        arrowPrev='arrowPrev.png',
+        aboutUsBanner='about-us-banner.jpeg',
+        president='president.jpeg',
+        contactUsBanner='contact-us-banner.jpg',
     )

@@ -1,0 +1,543 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<style>
+    .spec div {
+        background: #F5F5F5;
+        padding: 10px 16px;
+        display: flex;
+        border-radius: 8px;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    /* About page styling */
+    .about-section {
+        min-height: auto !important;
+    }
+
+    .about-card {
+        border-radius: 16px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease-in-out;
+        background: white;
+        height: 100%;
+    }
+
+    .about-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(251, 173, 24, 0.15);
+        border-color: var(--primary-color);
+        border-width: 2px;
+    }
+
+    .team-image {
+        width: 140px;
+        height: 180px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 2px solid #e9ecef;
+    }
+
+    .ambassador-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fbad18;
+    }
+
+    .president-image {
+        width: 200px;
+        height: 250px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 2px solid #e9ecef;
+    }
+
+    .service-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        background-color: #6c757d;
+    }
+
+    .placeholder-image {
+        width: 100%;
+        height: 200px;
+        background-color: #6c757d;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+    }
+
+    /* Masonry Gallery */
+    .masonry-gallery {
+        columns: 3;
+        column-gap: 20px;
+    }
+
+    .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .masonry-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Timeline for History */
+    .timeline {
+        position: relative;
+        padding: 20px 0;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--primary-color);
+        transform: translateX(-50%);
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    .timeline-content {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: relative;
+        width: 45%;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+        margin-left: 0;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 55%;
+    }
+
+    .timeline-content::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+        right: -20px;
+        border-left-color: white;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+        left: -20px;
+        border-right-color: white;
+    }
+
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        width: 20px;
+        height: 20px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+        .about-card {
+            margin-bottom: 30px;
+        }
+
+        .team-image {
+            width: 120px;
+            height: 150px;
+        }
+
+        .ambassador-image {
+            width: 120px;
+            height: 120px;
+        }
+
+        .director-image {
+            width: 160px;
+            height: 200px;
+        }
+
+        .masonry-gallery {
+            columns: 2;
+        }
+
+        .timeline::before {
+            left: 20px;
+        }
+
+        .timeline-content {
+            width: calc(100% - 60px);
+            margin-left: 60px !important;
+        }
+
+        .timeline-content::before {
+            left: -20px !important;
+            border-right-color: white !important;
+        }
+
+        .timeline-dot {
+            left: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .masonry-gallery {
+            columns: 1;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="profile-cover">
+    <div class="profile-cover-img" style="height: 350px !important; background-image: url({% static R.images.aboutUsBanner.path %})"></div>
+    <div class="d-flex flex-column text-white justify-content-center position-absolute top-50 start-50 translate-middle px-4 px-sm-2 px-md-0 bg-dark bg-opacity-75 w-100 h-100">
+        <div class="container">
+            <h1 class="mt-2 fw-medium" style="font-size: 50px;">About WeLead</h1>
+            <p class="m-0 w-100 w-md-75 w-lg-50">
+                Empowering Your Future with Expert Career Guidance and Opportunities
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- About Us Section -->
+<section class="container w-100 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="text-center">
+                <h2 class="fw-bold mb-4" style="font-size: 36px;">About WeLead</h2>
+                <p class="text-muted lead" style="font-size: 18px; line-height: 1.6;">
+                    We are a dynamic team of experts dedicated to providing exceptional career guidance and opportunities to our clients.
+                    Our mission is to empower individuals to achieve their full potential and achieve their goals.
+                </p>
+                <p class="text-muted lead" style="font-size: 18px; line-height: 1.6;">
+                    We believe in the power of collaboration and innovation to drive success.
+                    Our team is passionate about helping individuals achieve their goals and achieve their dreams.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision & Mission Section (Dark Background) -->
+<section class="py-5" style="background: #222222 !important;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-white mb-3" style="font-size: 48px;">Our Vision &amp; Mission</h2>
+            <p class="text-white fs-5" style="max-width: 600px; margin: 0 auto;">
+                Dedicated to empowering individuals through expert career guidance and opportunities to achieve their full potential and achieve their goals.
+            </p>
+        </div>
+
+        <div class="row">
+            <!-- Vision Card -->
+            <div class="col-lg-6 mb-4">
+                <div class="about-card h-100 p-4">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-eye text-primary" style="font-size: 48px;"></i>
+                    </div>
+                    <h3 class="fw-bold text-center mb-3">Our Vision</h3>
+                    <p class="text-muted text-center" style="line-height: 1.6;">
+                        {{ intro.vision|safe }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mission Card -->
+            <div class="col-lg-6 mb-4">
+                <div class="about-card h-100 p-4">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-bullseye text-primary" style="font-size: 48px;"></i>
+                    </div>
+                    <h3 class="fw-bold text-center mb-3">Our Mission</h3>
+                    <p class="text-muted text-center" style="line-height: 1.6;">
+                        {{ intro.mission|safe }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- President's Message Section (Light Background) -->
+<section class="py-5" style="background: transparent;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="font-size: 48px;">President's Message</h2>
+            <p class="text-muted fs-5" style="max-width: 600px; margin: 0 auto;">
+                Hear from our leadership team about our commitment to excellence and customer satisfaction.
+            </p>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4">
+                <div class="about-card h-100 p-4">
+                    <div class="text-center mb-4">
+                        <img src="{% static R.images.president.path %}" alt="President" class="president-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display: none; width: 200px; height: 250px; border-radius: 8px;">
+                            <span>Director Image</span>
+                        </div>
+                    </div>
+                    <blockquote class="blockquote mb-4">
+                        <p class="text-muted lead" style="line-height: 1.6;">
+                            "At WeLead, we are dedicated to providing exceptional career guidance and opportunities to help individuals achieve their full potential."
+                        </p>
+                    </blockquote>
+                    <div class="text-center">
+                        <h5 class="fw-bold mb-1">Mr. Sandun Ruwantha</h5>
+                        <p class="text-muted mb-0">President, WeLead</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="about-card h-100 p-4">
+                    <h3 class="fw-bold mb-4">Our Commitment</h3>
+                    <div class="mb-4">
+                        <h5 class="fw-semibold text-primary mb-2">
+                            <i class="bi bi-star me-2"></i>Quality Service
+                        </h5>
+                        <p class="text-muted">
+                            Ensuring that our services are of the highest quality and exceed expectations.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="fw-semibold text-primary mb-2">
+                            <i class="bi bi-award me-2"></i>Excellence
+                        </h5>
+                        <p class="text-muted">
+                            Striving to deliver exceptional career guidance and opportunities to our clients.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="fw-semibold text-primary mb-2">
+                            <i class="bi bi-person-lines-fill me-2"></i>Strategic Partnerships
+                        </h5>
+                        <p class="text-muted">
+                            Collaborating with industry leaders to enhance our service offerings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- History Section (Dark Background) -->
+<section class="py-5" style="background: #222222 !important;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-white mb-3" style="font-size: 48px;">Our History</h2>
+            <p class="text-white fs-5" style="max-width: 600px; margin: 0 auto;">
+                Explore the journey of WeLead from its inception to its current state.
+            </p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4 class="fw-bold text-primary mb-2">2018 - Foundation</h4>
+                    <p class="text-muted mb-0">
+                        WeLead was founded in 2018 with the mission to provide exceptional career guidance and opportunities to individuals.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4 class="fw-bold text-primary mb-2">2020 - Expansion</h4>
+                    <p class="text-muted mb-0">
+                        We expanded our operations to include more locations and expanded our service offerings.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4 class="fw-bold text-primary mb-2">2022 - Digital Transformation</h4>
+                    <p class="text-muted mb-0">
+                        We transformed our operations into a digital platform, enhancing customer experience and efficiency.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4 class="fw-bold text-primary mb-2">2024 - National Recognition</h4>
+                    <p class="text-muted mb-0">
+                        We were recognized as a leading career guidance and career development company by the Sri Lankan Government.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Brand Ambassador Section (Light Background) -->
+<section class="py-5" style="background: transparent;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="font-size: 48px;">Our Team</h2>
+            <p class="text-muted fs-5" style="max-width: 600px; margin: 0 auto;">
+                Meet the team behind WeLead, dedicated to providing exceptional career guidance and opportunities to individuals.
+            </p>
+        </div>
+
+        <div class="row">
+            <!-- Team Member 1 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="about-card h-100 p-4 text-center">
+                    <div class="mb-3">
+                        <img src="{% static R.images.president.path %}" alt="Team Member" class="team-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display: none; width: 140px; height: 180px; border-radius: 8px;">
+                            <span>Team Member</span>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold mb-2">Mr. Sandun Ruwantha</h4>
+                    <p class="text-primary fw-semibold mb-2">President</p>
+                    <p class="text-muted mb-3" style="line-height: 1.6;">
+                        Passionate about delivering exceptional career guidance and opportunities to individuals.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <a href="mailto:sandun@we-lead.com" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="col-lg-4 col-md-6  d-none">
+                <div class="about-card h-100 p-4 text-center">
+                    <div class="mb-3">
+                        <img src="/static/img/common/biuni.jpg" alt="Team Member" class="team-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display: none; width: 140px; height: 180px; border-radius: 8px;">
+                            <span>Team Member</span>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold mb-2">Ms. Biuni Nileka</h4>
+                    <p class="text-primary fw-semibold mb-2">Call Center Manager
+                        </p>
+                    <p class="text-muted mb-3" style="line-height: 1.6;">
+                        Passionate about delivering exceptional customer experiences.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <a href="mailto:nileka@viptravels.lk" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Gallery Section (Masonry Layout) -->
+<section class="py-5" style="background: #f8f9fa;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3" style="font-size: 48px;">Society highlights</h2>
+            <p class="text-muted fs-5" style="max-width: 600px; margin: 0 auto;">
+                A glimpse into our vibrant work culture and memorable moments.
+            </p>
+        </div>
+
+        <div class="masonry-gallery" style="opacity: 1; transition: opacity 0.5s;">
+            <!-- Gallery Item 1 -->
+            <div class="masonry-item">
+                <img src="/static/img/common/gallery1.jpg" alt="Managing Team" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-image" style="display: none;">
+                    <span>Managing Team</span>
+                </div>
+            </div>
+
+            <!-- Gallery Item 2 -->
+            <div class="masonry-item">
+                <img src="/static/img/common/gallery5.jpg" alt="Exciting Events" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-image" style="display: none;">
+                    <span>Exciting Events</span>
+                </div>
+            </div>
+
+            <!-- Gallery Item 3 -->
+            <div class="masonry-item">
+                <img src="/static/img/common/gallery3.jpg" alt="Membership" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-image" style="display: none;">
+                    <span>Membership</span>
+                </div>
+            </div>
+
+            <!-- Gallery Item 4 -->
+            <div class="masonry-item">
+                <img src="/static/img/common/gallery4.jpg" alt="Team Meeting" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-image" style="display: none;">
+                    <span>Team Meeting</span>
+                </div>
+            </div>
+
+            <!-- Gallery Item 5 -->
+            <div class="masonry-item">
+                <img src="/static/img/common/gallery2.jpg" alt="Award Ceremony" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-image" style="display: none;">
+                    <span>Award Ceremony</span>
+                </div>
+            </div>
+
+            <!-- Gallery Item 6 -->
+            <div class="masonry-item">
+                <img src="/static/img/common/gallery6.jpg" alt="Training Session" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-image" style="display: none;">
+                    <span>Training Session</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'common/contact-section.html' %}
+
+{% endblock %}

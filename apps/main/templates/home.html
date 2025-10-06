@@ -6,6 +6,10 @@
 {% block css %}
 	{{ block.super }}
 	<style>
+    section {
+        scroll-snap-align: start;
+    }
+
 	@media only screen and (max-width: 320px) {
 			.hero-section {
 				max-height: none;
@@ -328,12 +332,14 @@
     <div class="swiper movie-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.visionBg.path %}') center center / cover;">
-            <div class="h-100 p-4 d-flex flex-column justify-content-center align-items-center w-100 w-md-75 w-lg-50" style="transition: all 0.3s ease-in-out">
-                <div class="text-center mb-2 mb-lg-3 mb-md-4">
+            <div class="h-100 p-4 d-flex flex-column justify-content-center align-items-center w-100 w-md-75 w-lg-75" style="transition: all 0.3s ease-in-out">
+                <div class="text-center mb-2 mb-lg-3 mb-md-4 lh-1">
                     <i class="bi bi-eye-fill text-light fs-48 fs-lg-40 fs-md-32 fs-sm-24"></i>
                 </div>
-                <span>Our Vision</span>
-                <p class="fs-5 fw-light lh-1 mb-4" style="line-height: 1.6;">
+                <span class="fs-32 fs-xl-28 fs-lg-24 fs-md-20 fs-sm-16">
+                    Our Vision
+                </span>
+                <p class="fw-light lh-1 mb-4 fs-18 fs-xl-16 fs-lg-14 fs-md-14 fs-sm-12" style="line-height: 1.6;">
                     Enhance the career experience of everyone we empower.
                 </p>
             </div>
@@ -358,12 +364,14 @@
           ">🔇</button>
         </div>
         <div class="swiper-slide d-flex flex-column text-center rounded-4" data-type="image" style="background: url('{{ request.scheme }}://{{ request.get_host }}{% static R.images.missionBg.path %}') center center / cover;">
-            <div class="h-100 p-4 d-flex flex-column justify-content-center align-items-center w-100 w-md-75 w-lg-50" style="transition: all 0.3s ease-in-out">
-                <div class="text-center mb-4">
-                    <i class="bi bi-bullseye text-light" style="font-size: 48px;"></i>
+            <div class="h-100 p-4 d-flex flex-column justify-content-center align-items-center w-100 w-md-75 w-lg-75" style="transition: all 0.3s ease-in-out">
+                <div class="text-center mb-2 mb-lg-3 mb-md-4 lh-1">
+                    <i class="bi bi-bullseye text-light fs-48 fs-lg-40 fs-md-32 fs-sm-24"></i>
                 </div>
-                <span>Our Mission</span>
-                <p class="fs-5 fw-light lh-1 mb-4" style="line-height: 1.6;">
+                <span class="fs-32 fs-xl-28 fs-lg-24 fs-md-20 fs-sm-16">
+                    Our Mission
+                </span>
+                <p class="fw-light lh-1 mb-4 fs-18 fs-xl-16 fs-lg-14 fs-md-14 fs-sm-12" style="line-height: 1.6;">
                     {{ intro.mission|safe }}
                 </p>
             </div>
@@ -440,28 +448,28 @@
 <section id="faq-section" class="faq-section profile-cover" style="overflow-y: clip;">
 	<div class="profile-cover-img hero-section faq-bg" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ faq.background }})"></div>
 	<div class="d-flex flex-column text-white justify-content-center align-items-start position-absolute top-0 start-50 translate-middle-x px-4 px-sm-2 px-md-0 w-100 h-100" style="background: #0A7EBFC4;">
-		<div class="container d-flex flex-column text-white justify-content-center align-items-center gap-3">
+		<div class="container d-flex flex-column text-white justify-content-center align-items-center gap-3 gap-lg-2">
 			<!-- Section Title -->
-            <h1 class="fw-medium text-center lh-1 mb-2 animate__animated" data-animate="animate__fadeInDown" style="font-size: 48px;">
+            <h1 class="fw-medium text-center lh-1 mb-2 animate__animated fs-48 fs-xl-40 fs-lg-32 fs-md-28 fs-sm-24" data-animate="animate__fadeInDown">
                 Frequently Asked Questions
             </h1>
 
             <!-- Section Subtitle -->
-            <p class="fs-5 text-center fw-normal mb-5 animate__animated" data-animate="animate__fadeInUp" style="max-width: 600px; animation-delay: 100ms;">
+            <p class="text-center fw-normal mb-3 mb-lg-4 mb-md-5 animate__animated fs-18 fs-xl-16 fs-lg-14 fs-md-14 fs-sm-12" data-animate="animate__fadeInUp" style="max-width: 600px; animation-delay: 100ms;">
                 Find answers to common questions about our programs, events, and services.
             </p>
 
             <!-- FAQ Items -->
             <div class="row w-100" style="max-width: 1000px;">
                 {% for faq in faq.faqs %}
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6 mb-2 mb-lg-3 mb-md-4">
                         <div class="faq-item animate__animated" data-animate="animate__fadeInUp" style="animation-delay: 200ms;">
-                            <div class="faq-question d-flex align-items-center justify-content-between p-3 rounded-3" style="background: rgba(255, 255, 255, 0.60); cursor: pointer;" onclick="const answer = this.nextElementSibling; const icon = this.querySelector('i'); if (answer.style.display === 'block') { window.unToggleAllFaqs(); answer.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; } else { window.unToggleAllFaqs(); answer.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; }">
+                            <div class="faq-question d-flex align-items-center justify-content-between px-3 py-1 py-md-2 py-lg-3 rounded-3" style="background: rgba(255, 255, 255, 0.60); cursor: pointer;" onclick="const answer = this.nextElementSibling; const icon = this.querySelector('i'); if (answer.style.display === 'block') { window.unToggleAllFaqs(); answer.style.display = 'none'; icon.style.transform = 'rotate(0deg)'; } else { window.unToggleAllFaqs(); answer.style.display = 'block'; icon.style.transform = 'rotate(180deg)'; }">
                                 <h5 class="fw-bold mb-0 text-dark">{{ faq.question }}</h5>
-                                <i class="bi bi-chevron-down" style="color: #4669f5; font-size: 20px; transition: transform 0.3s ease;"></i>
+                                <i class="bi bi-chevron-down fs-20 fs-lg-18 fs-md-16 fs-sm-14" style="color: #4669f5; transition: transform 0.3s ease;"></i>
                             </div>
-                            <div class="faq-answer p-3" style="background: rgba(255, 255, 255, 0.40); border-left: 3px solid #0a7ebf; margin-top: 1px; display: none;">
-                                <p class="text-dark mb-0" style="font-size: 14px; line-height: 1.6;">
+                            <div class="faq-answer px-3 py-1 py-md-2 py-lg-3 " style="background: rgba(255, 255, 255, 0.40); border-left: 3px solid #0a7ebf; margin-top: 1px; display: none;">
+                                <p class="text-dark mb-0 fs-14 fs-md-12" style="line-height: 1.6;">
                                     {{ faq.answer }}
                                 </p>
                             </div>
@@ -472,115 +480,7 @@
 		</div>
 	</div>
 </section>
-<section class="contact-section d-flex flex-column justify-content-center align-items-center py-5" style="background: transparent;">
-    <div class="container d-flex flex-column justify-content-center align-items-center">
-        <!-- Section Title -->
-        <h1 class="fw-medium text-center lh-1 mb-2 animate__animated" data-animate="animate__fadeInDown" style="font-size: 48px;">
-            Contact Us
-        </h1>
-
-        <!-- Section Subtitle -->
-        <p class="fs-5 text-center fw-normal mb-5 animate__animated" data-animate="animate__fadeInUp" style="max-width: 600px; animation-delay: 100ms;">
-            Get in touch with us for any inquiries, support, or feedback. We're here to help!
-        </p>
-
-        <div class="row w-100">
-            <!-- Left Column - Contact Information -->
-            <div class="col-lg-6 mb-4">
-                <div class="contact-info-card p-4 rounded-4 shadow-sm bg-primary text-light" style="border: 1px solid #e9ecef;">
-                    <h2 class="fw-bold mb-4" style="font-size: 32px;">Contact Information</h2>
-
-                    <!-- Hotline -->
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="contact-icon me-3">
-                            <i class="bi bi-telephone-fill" style="font-size: 24px;"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-bold mb-1">Hotline</h5>
-                            <p class="mb-0" style="font-size: 16px;">+94 12 345 6789</p>
-                            <p class="mb-0" style="font-size: 14px;">Response Immediately</p>
-                        </div>
-                    </div>
-
-                    <!-- WhatsApp -->
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="contact-icon me-3">
-                            <i class="bi bi-whatsapp" style="font-size: 24px;"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-bold mb-1">WhatsApp</h5>
-                            <p class="mb-0" style="font-size: 16px;">+94 12 345 6789</p>
-                            <p class="mb-0" style="font-size: 14px;">Response immediately</p>
-                        </div>
-                    </div>
-
-                    <!-- Head Office -->
-                    <div class="d-flex align-items-start mb-4">
-                        <div class="contact-icon me-3">
-                            <i class="bi bi-building" style="font-size: 24px;"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-bold mb-1">Address</h5>
-                            <p class="mb-1" style="font-size: 14px; line-height: 1.5;">
-                                University of Peradeniya, Peradeniya, 20400<br>
-                                Sri Lanka
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="d-flex align-items-center">
-                        <div class="contact-icon me-3">
-                            <i class="bi bi-envelope" style="font-size: 24px;"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-bold mb-1">Email</h5>
-                            <p class="mb-0" style="font-size: 16px;">info@we-lead.com</p>
-                            <p class="mb-0" style="font-size: 14px;">Response within 24 hours</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column - Main Branch Location -->
-            <div class="col-lg-6">
-                <div class="branch-card rounded-4 shadow-sm" style="background: #f8f9fa; border: 1px solid #e9ecef;">
-                    <div class="d-flex flex-column">
-                        <!-- Branch Header -->
-                        <div class="p-3 border-bottom">
-                            <h5 class="fw-bold text-dark mb-2">Visit Our Head Office   <span class="badge bg-primary text-light mb-2" style="font-size: 12px;">Main Branch</span></h5>
-                        </div>
-
-                        <!-- Google Map -->
-                        <div class="flex-grow-1 p-2">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5608.791802214587!2d80.59538099974372!3d7.256795982848156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae368deaaaaaaab%3A0xb5476b88282d47fb!2sUniversity%20of%20Peradeniya!5e0!3m2!1sen!2slk!4v1759570051949!5m2!1sen!2slk" width="100%" height="278" style="border-radius: 8px; border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-
-                        <!-- Branch Details -->
-                        <div class="p-3">
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="bi bi-geo-alt text-primary me-2"></i>
-                                <p class="text-muted mb-0" style="font-size: 14px;">University of Peradeniya, Peradeniya, 20400 Sri Lanka.</p>
-                            </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="bi bi-telephone text-primary me-2"></i>
-                                <p class="text-muted mb-0" style="font-size: 14px;">+94 12 345 6789</p>
-                            </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="bi bi-envelope text-primary me-2"></i>
-                                <p class="text-muted mb-0" style="font-size: 14px;">info@we-lead.com</p>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-clock text-primary me-2"></i>
-                                <p class="text-muted mb-0" style="font-size: 14px;">Mon - Fri: 5:00 PM - 7:00 PM</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{% include 'common/contact-section.html' %}
 <section id="sponsors-section" class="sponsors-section d-flex flex-column justify-content-center align-items-center py-5 bg-primary">
     <div class="container">
         <div class="d-flex flex-row gap-2 swiper" id="sponsors">

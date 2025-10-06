@@ -1,0 +1,939 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="profile-cover">
+    <div class="profile-cover-img" style="height: 350px !important; background-image: url({% static R.images.contactUsBanner.path %})"></div>
+    <div class="d-flex flex-column text-white justify-content-center position-absolute top-50 start-50 translate-middle px-4 px-sm-2 px-md-0 bg-dark bg-opacity-75 w-100 h-100">
+        <div class="container">
+            <h1 class="mt-2 fw-medium" style="font-size: 50px;">Contact Us</h1>
+            <p class="m-0 w-100 w-md-75 w-lg-50">
+                Have a question or need help? We're here to help!
+            </p>
+        </div>
+    </div>
+</section>
+<section class="d-flex container flex-column justify-content-center align-items-center my-5 text-dark">
+    <h1 class="fw-normal mb-0 lh-1" style="font-size: 48px;">Contact Us</h1>
+    <span class="fs-5 fw-normal mb-5">We would love to hear from you!</span>
+    <div class="d-flex flex-column flex-md-row justify-content-center align-items-start gap-2 w-100">
+      <form class="d-flex flex-column flex-lg-row w-100" method="POST" action="">
+        <div class="d-flex flex-column card card-body w-100 contact-form-card">
+          <div class="d-flex flex-column flex-sm-row gap-3 mb-2 w-100">
+            <label class="form-label w-100">
+              <span class="mb-1">First Name</span>
+              <input type="text" class="form-control form-control-sm rounded-3" placeholder="John" id="contactFirstName" name="contactFirstName" value="" required="">
+            </label>
+            <label class="form-label w-100">
+              <span class="mb-1">Last Name</span>
+              <input type="text" class="form-control form-control-sm rounded-3" id="contactLastName" name="contactLastName" placeholder="Smith" value="" required="">
+            </label>
+          </div>
+          <div class="d-flex flex-column flex-sm-row gap-3 mb-2 w-100">
+            <label class="form-label w-100">
+              <span class="mb-1">Phone</span>
+              <div class="input-group w-100">
+                <input type="hidden" id="contactCountryCode" name="contactCountryCode" value="94">
+                <select id="contactCountry" name="contactCountry" class="form-control select text-end" data-minimum-results-for-search="Infinity" data-width="auto" style="max-width: max-content !important; border-top-left-radius: 8px; border-bottom-left-radius: 8px;" required="">
+
+                    <option value="1">
+                      🇦🇫 +93
+                    </option>
+
+                    <option value="2">
+                      🇦🇱 +355
+                    </option>
+
+                    <option value="3">
+                      🇩🇿 +213
+                    </option>
+
+                    <option value="4">
+                      🇦🇩 +376
+                    </option>
+
+                    <option value="5">
+                      🇦🇴 +244
+                    </option>
+
+                    <option value="6">
+                      🇦🇬 +1-268
+                    </option>
+
+                    <option value="7">
+                      🇦🇷 +54
+                    </option>
+
+                    <option value="8">
+                      🇦🇲 +374
+                    </option>
+
+                    <option value="9">
+                      🇦🇺 +61
+                    </option>
+
+                    <option value="10">
+                      🇦🇹 +43
+                    </option>
+
+                    <option value="11">
+                      🇦🇿 +994
+                    </option>
+
+                    <option value="12">
+                      🇧🇸 +1-242
+                    </option>
+
+                    <option value="13">
+                      🇧🇭 +973
+                    </option>
+
+                    <option value="14">
+                      🇧🇩 +880
+                    </option>
+
+                    <option value="15">
+                      🇧🇧 +1-246
+                    </option>
+
+                    <option value="16">
+                      🇧🇾 +375
+                    </option>
+
+                    <option value="17">
+                      🇧🇪 +32
+                    </option>
+
+                    <option value="18">
+                      🇧🇿 +501
+                    </option>
+
+                    <option value="19">
+                      🇧🇯 +229
+                    </option>
+
+                    <option value="20">
+                      🇧🇹 +975
+                    </option>
+
+                    <option value="21">
+                      🇧🇴 +591
+                    </option>
+
+                    <option value="22">
+                      🇧🇦 +387
+                    </option>
+
+                    <option value="23">
+                      🇧🇼 +267
+                    </option>
+
+                    <option value="24">
+                      🇧🇷 +55
+                    </option>
+
+                    <option value="25">
+                      🇧🇳 +673
+                    </option>
+
+                    <option value="26">
+                      🇧🇬 +359
+                    </option>
+
+                    <option value="27">
+                      🇧🇫 +226
+                    </option>
+
+                    <option value="28">
+                      🇧🇮 +257
+                    </option>
+
+                    <option value="29">
+                      🇰🇭 +855
+                    </option>
+
+                    <option value="30">
+                      🇨🇲 +237
+                    </option>
+
+                    <option value="31">
+                      🇨🇦 +1
+                    </option>
+
+                    <option value="32">
+                      🇨🇻 +238
+                    </option>
+
+                    <option value="33">
+                      🇨🇫 +236
+                    </option>
+
+                    <option value="34">
+                      🇹🇩 +235
+                    </option>
+
+                    <option value="35">
+                      🇨🇱 +56
+                    </option>
+
+                    <option value="36">
+                      🇨🇳 +86
+                    </option>
+
+                    <option value="37">
+                      🇨🇴 +57
+                    </option>
+
+                    <option value="38">
+                      🇰🇲 +269
+                    </option>
+
+                    <option value="39">
+                      🏳️ +242
+                    </option>
+
+                    <option value="40">
+                      🇨🇷 +506
+                    </option>
+
+                    <option value="41">
+                      🇭🇷 +385
+                    </option>
+
+                    <option value="42">
+                      🇨🇺 +53
+                    </option>
+
+                    <option value="43">
+                      🇨🇾 +357
+                    </option>
+
+                    <option value="44">
+                      🏳️ +420
+                    </option>
+
+                    <option value="45">
+                      🏳️ +243
+                    </option>
+
+                    <option value="46">
+                      🇩🇰 +45
+                    </option>
+
+                    <option value="47">
+                      🇩🇯 +253
+                    </option>
+
+                    <option value="48">
+                      🇩🇲 +1-767
+                    </option>
+
+                    <option value="49">
+                      🇩🇴 +1-809
+                    </option>
+
+                    <option value="50">
+                      🏳️ +670
+                    </option>
+
+                    <option value="51">
+                      🇪🇨 +593
+                    </option>
+
+                    <option value="52">
+                      🇪🇬 +20
+                    </option>
+
+                    <option value="53">
+                      🇸🇻 +503
+                    </option>
+
+                    <option value="54">
+                      🇬🇶 +240
+                    </option>
+
+                    <option value="55">
+                      🇪🇷 +291
+                    </option>
+
+                    <option value="56">
+                      🇪🇪 +372
+                    </option>
+
+                    <option value="57">
+                      🏳️ +268
+                    </option>
+
+                    <option value="58">
+                      🇪🇹 +251
+                    </option>
+
+                    <option value="59">
+                      🇫🇯 +679
+                    </option>
+
+                    <option value="60">
+                      🇫🇮 +358
+                    </option>
+
+                    <option value="61">
+                      🇫🇷 +33
+                    </option>
+
+                    <option value="62">
+                      🇬🇦 +241
+                    </option>
+
+                    <option value="63">
+                      🇬🇲 +220
+                    </option>
+
+                    <option value="64">
+                      🇬🇪 +995
+                    </option>
+
+                    <option value="65">
+                      🇩🇪 +49
+                    </option>
+
+                    <option value="66">
+                      🇬🇭 +233
+                    </option>
+
+                    <option value="67">
+                      🇬🇷 +30
+                    </option>
+
+                    <option value="68">
+                      🇬🇩 +1-473
+                    </option>
+
+                    <option value="69">
+                      🇬🇹 +502
+                    </option>
+
+                    <option value="70">
+                      🇬🇳 +224
+                    </option>
+
+                    <option value="71">
+                      🇬🇼 +245
+                    </option>
+
+                    <option value="72">
+                      🇬🇾 +592
+                    </option>
+
+                    <option value="73">
+                      🇭🇹 +509
+                    </option>
+
+                    <option value="74">
+                      🇭🇳 +504
+                    </option>
+
+                    <option value="75">
+                      🇭🇺 +36
+                    </option>
+
+                    <option value="76">
+                      🇮🇸 +354
+                    </option>
+
+                    <option value="77">
+                      🇮🇳 +91
+                    </option>
+
+                    <option value="78">
+                      🇮🇩 +62
+                    </option>
+
+                    <option value="79">
+                      🇮🇷 +98
+                    </option>
+
+                    <option value="80">
+                      🇮🇶 +964
+                    </option>
+
+                    <option value="81">
+                      🇮🇪 +353
+                    </option>
+
+                    <option value="82">
+                      🇮🇱 +972
+                    </option>
+
+                    <option value="83">
+                      🇮🇹 +39
+                    </option>
+
+                    <option value="84">
+                      🏳️ +225
+                    </option>
+
+                    <option value="85">
+                      🇯🇲 +1-876
+                    </option>
+
+                    <option value="86">
+                      🇯🇵 +81
+                    </option>
+
+                    <option value="87">
+                      🇯🇴 +962
+                    </option>
+
+                    <option value="88">
+                      🇰🇿 +7
+                    </option>
+
+                    <option value="89">
+                      🇰🇪 +254
+                    </option>
+
+                    <option value="90">
+                      🇰🇮 +686
+                    </option>
+
+                    <option value="91">
+                      🇰🇼 +965
+                    </option>
+
+                    <option value="92">
+                      🇰🇬 +996
+                    </option>
+
+                    <option value="93">
+                      🇱🇦 +856
+                    </option>
+
+                    <option value="94">
+                      🇱🇻 +371
+                    </option>
+
+                    <option value="95">
+                      🇱🇧 +961
+                    </option>
+
+                    <option value="96">
+                      🇱🇸 +266
+                    </option>
+
+                    <option value="97">
+                      🇱🇷 +231
+                    </option>
+
+                    <option value="98">
+                      🇱🇾 +218
+                    </option>
+
+                    <option value="99">
+                      🇱🇮 +423
+                    </option>
+
+                    <option value="100">
+                      🇱🇹 +370
+                    </option>
+
+                    <option value="101">
+                      🇱🇺 +352
+                    </option>
+
+                    <option value="102">
+                      🇲🇬 +261
+                    </option>
+
+                    <option value="103">
+                      🇲🇼 +265
+                    </option>
+
+                    <option value="104">
+                      🇲🇾 +60
+                    </option>
+
+                    <option value="105">
+                      🇲🇻 +960
+                    </option>
+
+                    <option value="106">
+                      🇲🇱 +223
+                    </option>
+
+                    <option value="107">
+                      🇲🇹 +356
+                    </option>
+
+                    <option value="108">
+                      🇲🇭 +692
+                    </option>
+
+                    <option value="109">
+                      🇲🇷 +222
+                    </option>
+
+                    <option value="110">
+                      🇲🇺 +230
+                    </option>
+
+                    <option value="111">
+                      🇲🇽 +52
+                    </option>
+
+                    <option value="112">
+                      🇫🇲 +691
+                    </option>
+
+                    <option value="113">
+                      🇲🇩 +373
+                    </option>
+
+                    <option value="114">
+                      🇲🇨 +377
+                    </option>
+
+                    <option value="115">
+                      🇲🇳 +976
+                    </option>
+
+                    <option value="116">
+                      🇲🇪 +382
+                    </option>
+
+                    <option value="117">
+                      🇲🇦 +212
+                    </option>
+
+                    <option value="118">
+                      🇲🇿 +258
+                    </option>
+
+                    <option value="119">
+                      🇲🇲 +95
+                    </option>
+
+                    <option value="120">
+                      🇳🇦 +264
+                    </option>
+
+                    <option value="121">
+                      🇳🇷 +674
+                    </option>
+
+                    <option value="122">
+                      🇳🇵 +977
+                    </option>
+
+                    <option value="123">
+                      🇳🇱 +31
+                    </option>
+
+                    <option value="124">
+                      🇳🇿 +64
+                    </option>
+
+                    <option value="125">
+                      🇳🇮 +505
+                    </option>
+
+                    <option value="126">
+                      🇳🇪 +227
+                    </option>
+
+                    <option value="127">
+                      🇳🇬 +234
+                    </option>
+
+                    <option value="128">
+                      🇰🇵 +850
+                    </option>
+
+                    <option value="129">
+                      🇲🇰 +389
+                    </option>
+
+                    <option value="130">
+                      🇳🇴 +47
+                    </option>
+
+                    <option value="131">
+                      🇴🇲 +968
+                    </option>
+
+                    <option value="132">
+                      🇵🇰 +92
+                    </option>
+
+                    <option value="133">
+                      🇵🇼 +680
+                    </option>
+
+                    <option value="134">
+                      🇵🇸 +970
+                    </option>
+
+                    <option value="135">
+                      🇵🇦 +507
+                    </option>
+
+                    <option value="136">
+                      🇵🇬 +675
+                    </option>
+
+                    <option value="137">
+                      🇵🇾 +595
+                    </option>
+
+                    <option value="138">
+                      🇵🇪 +51
+                    </option>
+
+                    <option value="139">
+                      🇵🇭 +63
+                    </option>
+
+                    <option value="140">
+                      🇵🇱 +48
+                    </option>
+
+                    <option value="141">
+                      🇵🇹 +351
+                    </option>
+
+                    <option value="142">
+                      🇶🇦 +974
+                    </option>
+
+                    <option value="143">
+                      🇷🇴 +40
+                    </option>
+
+                    <option value="144">
+                      🇷🇺 +7
+                    </option>
+
+                    <option value="145">
+                      🇷🇼 +250
+                    </option>
+
+                    <option value="146">
+                      🇰🇳 +1-869
+                    </option>
+
+                    <option value="147">
+                      🇱🇨 +1-758
+                    </option>
+
+                    <option value="148">
+                      🇻🇨 +1-784
+                    </option>
+
+                    <option value="149">
+                      🇼🇸 +685
+                    </option>
+
+                    <option value="150">
+                      🇸🇲 +378
+                    </option>
+
+                    <option value="151">
+                      🏳️ +239
+                    </option>
+
+                    <option value="152">
+                      🇸🇦 +966
+                    </option>
+
+                    <option value="153">
+                      🇸🇳 +221
+                    </option>
+
+                    <option value="154">
+                      🇷🇸 +381
+                    </option>
+
+                    <option value="155">
+                      🇸🇨 +248
+                    </option>
+
+                    <option value="156">
+                      🇸🇱 +232
+                    </option>
+
+                    <option value="157">
+                      🇸🇬 +65
+                    </option>
+
+                    <option value="158">
+                      🇸🇰 +421
+                    </option>
+
+                    <option value="159">
+                      🇸🇮 +386
+                    </option>
+
+                    <option value="160">
+                      🇸🇧 +677
+                    </option>
+
+                    <option value="161">
+                      🇸🇴 +252
+                    </option>
+
+                    <option value="162">
+                      🇿🇦 +27
+                    </option>
+
+                    <option value="163">
+                      🇰🇷 +82
+                    </option>
+
+                    <option value="164">
+                      🇸🇸 +211
+                    </option>
+
+                    <option value="165">
+                      🇪🇸 +34
+                    </option>
+
+                    <option value="166">
+                      🇱🇰 +94
+                    </option>
+
+                    <option value="167">
+                      🇸🇩 +249
+                    </option>
+
+                    <option value="168">
+                      🇸🇷 +597
+                    </option>
+
+                    <option value="169">
+                      🇸🇪 +46
+                    </option>
+
+                    <option value="170">
+                      🇨🇭 +41
+                    </option>
+
+                    <option value="171">
+                      🇸🇾 +963
+                    </option>
+
+                    <option value="172">
+                      🇹🇼 +886
+                    </option>
+
+                    <option value="173">
+                      🇹🇯 +992
+                    </option>
+
+                    <option value="174">
+                      🇹🇿 +255
+                    </option>
+
+                    <option value="175">
+                      🇹🇭 +66
+                    </option>
+
+                    <option value="176">
+                      🇹🇬 +228
+                    </option>
+
+                    <option value="177">
+                      🇹🇴 +676
+                    </option>
+
+                    <option value="178">
+                      🇹🇹 +1-868
+                    </option>
+
+                    <option value="179">
+                      🇹🇳 +216
+                    </option>
+
+                    <option value="180">
+                      🇹🇷 +90
+                    </option>
+
+                    <option value="181">
+                      🇹🇲 +993
+                    </option>
+
+                    <option value="182">
+                      🇹🇻 +688
+                    </option>
+
+                    <option value="183">
+                      🇺🇬 +256
+                    </option>
+
+                    <option value="184">
+                      🇺🇦 +380
+                    </option>
+
+                    <option value="185">
+                      🇦🇪 +971
+                    </option>
+
+                    <option value="186">
+                      🇬🇧 +44
+                    </option>
+
+                    <option value="187">
+                      🇺🇸 +1
+                    </option>
+
+                    <option value="188">
+                      🇺🇾 +598
+                    </option>
+
+                    <option value="189">
+                      🇺🇿 +998
+                    </option>
+
+                    <option value="190">
+                      🇻🇺 +678
+                    </option>
+
+                    <option value="191">
+                      🏳️ +379
+                    </option>
+
+                    <option value="192">
+                      🇻🇪 +58
+                    </option>
+
+                    <option value="193">
+                      🇻🇳 +84
+                    </option>
+
+                    <option value="194">
+                      🇾🇪 +967
+                    </option>
+
+                    <option value="195">
+                      🇿🇲 +260
+                    </option>
+
+                    <option value="196">
+                      🇿🇼 +263
+                    </option>
+
+                </select>
+                <input type="text" id="contactMobileNumber" name="contactMobileNumber" class="form-control" placeholder="07X XXXX XXX" style="border-top-right-radius: 8px; border-bottom-right-radius: 8px;" inputmode="numeric" value="" required="">
+              </div>
+            </label>
+            <label class="form-label w-100">
+              <span class="mb-1">Email</span>
+              <input type="email" id="contactEmail" name="contactEmail" class="form-control rounded-3" placeholder="john@gmail.com" inputmode="email" value="" required="">
+            </label>
+          </div>
+          <div class="d-flex flex-column flex-sm-row gap-3 mb-2 w-100">
+            <label class="form-label w-100">
+              <span class="mb-1">Job Title</span>
+              <input type="text" id="contactJob" name="contactJob" class="form-control rounded-3" placeholder="Teacher" required="">
+            </label>
+            <label class="form-label w-100">
+              <span class="mb-1">Country</span>
+              <input type="text" id="contactOrigin" name="contactOrigin" class="form-control rounded-3" placeholder="Sri Lanka" value="" required="">
+            </label>
+          </div>
+          <label class="form-label w-100 mb-2">
+            <span class="mb-1">Choose a Topic</span>
+            <select class="form-select rounded-3" id="contactTopic" name="contactTopic">
+              <option value="">Select Topic...</option>
+
+                <option value="1">General Inquiry</option>
+                <option value="2">Technical Support</option>
+
+            </select>
+          </label>
+          <label class="form-label w-100 mb-2">
+            <span class="mb-1">Message</span>
+            <textarea rows="5" cols="3" class="form-control" placeholder="What can we help you with?" id="contactMessage" name="contactMessage"></textarea>
+          </label>
+          <button type="button" id="contact-us-button" class="btn btn-dark rounded-3 w-100 mb-3">Submit</button>
+        </div>
+      </form>
+      <div class="col-lg-6 mb-4">
+        <div class="contact-info-card p-4 rounded-4 shadow-sm bg-primary text-light" style="border: 1px solid #e9ecef;">
+            <h2 class="fw-bold mb-4" style="font-size: 32px;">Contact Information</h2>
+
+            <!-- Hotline -->
+            <div class="d-flex align-items-center mb-4">
+                <div class="contact-icon me-3">
+                    <i class="bi bi-telephone-fill" style="font-size: 24px;"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1">Hotline</h5>
+                    <p class="mb-0" style="font-size: 16px;">+94 12 345 6789</p>
+                    <p class="mb-0" style="font-size: 14px;">Response Immediately</p>
+                </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="d-flex align-items-center mb-4">
+                <div class="contact-icon me-3">
+                    <i class="bi bi-whatsapp" style="font-size: 24px;"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1">WhatsApp</h5>
+                    <p class="mb-0" style="font-size: 16px;">+94 12 345 6789</p>
+                    <p class="mb-0" style="font-size: 14px;">Response immediately</p>
+                </div>
+            </div>
+
+            <!-- Head Office -->
+            <div class="d-flex align-items-start mb-4">
+                <div class="contact-icon me-3">
+                    <i class="bi bi-building" style="font-size: 24px;"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1">Address</h5>
+                    <p class="mb-1" style="font-size: 14px; line-height: 1.5;">
+                        University of Peradeniya, Peradeniya, 20400<br>
+                        Sri Lanka
+                    </p>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="d-flex align-items-center">
+                <div class="contact-icon me-3">
+                    <i class="bi bi-envelope" style="font-size: 24px;"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1">Email</h5>
+                    <p class="mb-0" style="font-size: 16px;">info@we-lead.com</p>
+                    <p class="mb-0" style="font-size: 14px;">Response within 24 hours</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Main Branch Section -->
+<section class="container w-100 py-5">
+    <div class="text-center mb-5">
+      <h1 class="fw-medium text-center lh-1 mb-3" style="font-size: 48px;">Visit Our Main Branch</h1>
+      <p class="fs-5 text-center fw-normal mb-0" style="max-width: 630px; margin: 0 auto;">
+          Our main branch is located in the University of Peradeniya, where you can find our offices and services.
+      </p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="card branch-card">
+          <div class="position-relative">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5608.791802214587!2d80.59538099974372!3d7.256795982848156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae368deaaaaaaab%3A0xb5476b88282d47fb!2sUniversity%20of%20Peradeniya!5e0!3m2!1sen!2slk!4v1759570051949!5m2!1sen!2slk" width="100%" height="100%" style="min-height: 360px; border-radius: 8px; border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="position-absolute top-0 end-0 m-3 d-flex flex-row">
+              <span class="badge bg-primary px-4 py-2" style="font-size: 14px;">Main Branch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

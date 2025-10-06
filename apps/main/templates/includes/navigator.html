@@ -82,8 +82,8 @@
 									{% if icons %}<i class="ph ph-house" aria-hidden="false"></i>&nbsp;{% endif %} Home
 								</a>
 							</li>
-							<li class="nav-item {% if R.data.navigator.activeTab == 'car-rental' %}active{% endif %}">
-								<a href="#" class="nav-link text-nowrap fw-semibold">
+							<li class="nav-item {% if R.data.navigator.activeTab == 'about-us' %}active{% endif %}">
+								<a href="{% url 'about-us' %}" class="nav-link text-nowrap fw-semibold">
 									{% if icons %}<i class="ph ph-car" aria-hidden="false"></i>&nbsp;{% endif %} About Us
 								</a>
 							</li>
@@ -102,8 +102,8 @@
 									{% if icons %}<i class="ph ph-airplane-tilt" aria-hidden="false"></i>&nbsp;{% endif %} News & Updates
 								</a>
 							</li>
-							<li class="nav-item {% if R.data.navigator.activeTab == 'air-ticketing' %}active{% endif %}">
-								<a href="#" class="nav-link text-nowrap fw-semibold">
+							<li class="nav-item {% if R.data.navigator.activeTab == 'contact-us' %}active{% endif %}">
+								<a href="{% url 'contact-us' %}" class="nav-link text-nowrap fw-semibold">
 									{% if icons %}<i class="ph ph-airplane-tilt" aria-hidden="false"></i>&nbsp;{% endif %} Contact Us
 								</a>
 							</li>

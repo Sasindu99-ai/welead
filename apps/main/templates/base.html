@@ -21,9 +21,9 @@
 	{% endblock %}
 </head>
 {% include 'includes/gtrack.html' %}
-<body>
+<body style="scroll-behavior: smooth;">
 	{% include 'includes/navigator.html' %}
-	<main class="page-wrapper w-100 overflow-auto d-flex flex-column h-100 justify-content-between position-relative">
+	<main class="page-wrapper w-100 overflow-auto d-flex flex-column h-100 justify-content-between position-relative" style="scroll-snap-type: y mandatory;">
 		{% include 'includes/aside.html' %}
 		{% block content %}
 		{% endblock %}

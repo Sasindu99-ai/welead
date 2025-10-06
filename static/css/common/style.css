@@ -296,7 +296,7 @@ body{
     font-size: 72px !important;
 }
 
-@media (max-width: 576px) {
+@media (min-width: 0px) and (max-width: 576px) {
     .fs-sm-10 {
         font-size: 10px !important;
     }
