@@ -243,17 +243,10 @@
 		}
 	}
 
-    /* Zoom effects */
-    .zoom-out {
-      transform: scale(0.6) !important;
-    }
-
-    .zoom-in {
-      transform: scale(1) !important;
-    }
-
     #hero-swiper .swiper-slide {
-      transition: transform 0.5s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
     }
 
     #hero-swiper .button-prev:after {
@@ -345,8 +338,8 @@
             </div>
         </div>
         <div class="swiper-slide rounded-4" data-type="video" style="position: relative;">
-          <video id="introVideo" playsinline autoplay muted loop style="width: 100%; object-fit: cover; border-radius: 16px; aspect-ratio: 16/9 !important;" preload="auto" poster="{% static R.images.introThumbnail.path %}">
-            <source src="{% static R.images.intro.path %}" type="video/mp4" />
+          <video id="introVideo" playsinline autoplay muted loop style="width: 100%; object-fit: cover; border-radius: 16px; aspect-ratio: 16/9 !important;" preload="none" poster="{% static R.images.introThumbnail.path %}">
+            <source data-src="{% static R.images.intro.path %}" type="video/mp4" />
           </video>
           <button id="muteToggle" style="
             position: absolute;
@@ -509,96 +502,100 @@
 
             window.unToggleAllFaqs = unToggleAllFaqs;
 
-			function animateCurrentSlide(slide) {
+            function loadIntroVideo() {
+                const video = document.getElementById('introVideo');
+                if (!video) return;
+
+                const source = video.querySelector('source');
+                if (source && source.dataset.src && !source.getAttribute('src')) {
+                    source.setAttribute('src', source.dataset.src);
+                    video.load();
+                }
+            }
+
+            window.addEventListener('load', loadIntroVideo, { once: true });
+
+			function animateHeroSlide(slide) {
 				if (!slide) return;
 				const title = slide.querySelector("h1");
 				const subtitle = slide.querySelector("p");
 				const buttons = slide.querySelectorAll("a.btn");
+                const targets = [title, subtitle, ...buttons].filter(Boolean);
 
-				if (title && subtitle && buttons.length) {
+				if (targets.length) {
+                    gsap.killTweensOf(targets);
+                    targets.forEach(target => gsap.set(target, { opacity: 0, y: 32 }));
+
+                    if (title) {
 					gsap.to(title, {
 						opacity: 1,
 						y: 0,
-						duration: 1,
-						ease: "power2.out",
-						delay: 0.2
+						duration: 0.8,
+						ease: "power3.out",
+						delay: 0.05
 					});
+                    }
+                    if (subtitle) {
 					gsap.to(subtitle, {
 						opacity: 1,
 						y: 0,
-						duration: 1,
-						ease: "power2.out",
-						delay: 0.4
+						duration: 0.8,
+						ease: "power3.out",
+						delay: 0.15
 					});
+                    }
+                    if (buttons.length) {
 					gsap.to(buttons, {
 						opacity: 1,
 						y: 0,
-						duration: 1,
-						ease: "power2.out",
-						stagger: 0.1,
-						delay: 0.6
+						duration: 0.7,
+						ease: "power3.out",
+						stagger: 0.08,
+						delay: 0.25
 					});
+                    }
 				}
 			}
 
-            let autoplayTimeout;
             let heroSwiper = new Swiper('.hero-swiper', {
               loop: true,
               slidesPerView: 1,
-              allowTouchMove: false,
+              speed: 1000,
+              effect: 'fade',
+              fadeEffect: {
+                crossFade: true,
+              },
+              allowTouchMove: true,
+              grabCursor: true,
+              keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+              },
+              autoplay: {
+                delay: 6500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              },
+              navigation: {
+                nextEl: '.button-next',
+                prevEl: '.button-prev',
+              },
               on: {
                 init: function () {
-                  startAutoplay();
-				  animateCurrentSlide(this.slides[this.activeIndex]);
+				  animateHeroSlide(this.slides[this.activeIndex]);
+                },
+                slideChangeTransitionStart: function () {
+                  this.slides.forEach(slide => {
+                    const title = slide.querySelector("h1");
+                    const subtitle = slide.querySelector("p");
+                    const buttons = slide.querySelectorAll("a.btn");
+                    gsap.set([title, subtitle, ...buttons].filter(Boolean), { opacity: 0, y: 32 });
+                  });
+                },
+                slideChangeTransitionEnd: function () {
+				  animateHeroSlide(this.slides[this.activeIndex]);
                 }
               },
-            });
-
-            function startAutoplay() {
-              clearTimeout(autoplayTimeout);
-              autoplayTimeout = setTimeout(() => {
-                triggerZoomSlide('next');
-                startAutoplay();
-              }, 5000);
-            }
-
-            function triggerZoomSlide(direction = 'next') {
-              const slides = heroSwiper.slides;
-
-              // 1. Zoom out
-              slides.forEach(slide => {
-                slide.classList.remove('zoom-in');
-                slide.classList.add('zoom-out');
-              });
-
-              // 2. After zoom out, change slide
-              setTimeout(() => {
-                if (direction === 'next') {
-                  heroSwiper.slideNext(500, false);
-                } else {
-                  heroSwiper.slidePrev(500, false);
-                }
-
-                // 3. After slide transition, zoom in
-                setTimeout(() => {
-                  slides.forEach(slide => {
-                    slide.classList.remove('zoom-out');
-                    slide.classList.add('zoom-in');
-                  });
-				  animateCurrentSlide(slides[heroSwiper.activeIndex]);
-                }, 500);
-              }, 500);
-            }
-
-            // Restart autoplay on manual navigation
-            document.querySelector('.button-next').addEventListener('click', () => {
-              triggerZoomSlide('next');
-              startAutoplay();
-            });
-
-            document.querySelector('.button-prev').addEventListener('click', () => {
-              triggerZoomSlide('prev');
-              startAutoplay();
             });
 
             {% for audience in audiences %}
@@ -623,7 +620,6 @@
                 }
             });
 
-            let userNavigated = false;
             const intro = new Swiper('.movie-swiper', {
               effect: 'coverflow',
               loop: false,
@@ -676,9 +672,6 @@
                 }
               },
               on: {
-                slideChangeTransitionStart: function () {
-                  userNavigated = true;
-                },
                 slideChangeTransitionEnd: function () {
                   this.slides.forEach(slide => {
                     const v = slide.querySelector('video');
@@ -690,24 +683,13 @@
                     const vid = activeSlide.querySelector('video');
                     if (vid) {
                       vid.play().then(() => {
-                        if (!userNavigated) {
-                          vid.onended = () => this.slideNext();
-                        } else {
-                          vid.onended = null;
-                          userNavigated = false;
-                        }
+                        vid.onended = () => this.slideNext();
                       }).catch(() => {
-                        if (!userNavigated) {
-                          setTimeout(() => this.slideNext(), 2000);
-                        }
-                        userNavigated = false;
+                        setTimeout(() => this.slideNext(), 2000);
                       });
                     }
                   } else {
-                    if (!userNavigated) {
-                      setTimeout(() => this.slideNext(), 2000);
-                    }
-                    userNavigated = false;
+                    setTimeout(() => this.slideNext(), 2000);
                   }
                 },
               }
@@ -750,48 +732,5 @@
 		// ⏱ Initial call & set interval
 		updateCountdown();
 		const intervalId = setInterval(updateCountdown, 1000);
-	</script>
-	<script nonce="{{ nonce }}">
-		document.addEventListener('DOMContentLoaded', function() {
-			const heroSlides = document.querySelectorAll(".swiper-slide");
-
-			heroSlides.forEach((slide, index) => {
-				const title = slide.querySelector("h1");
-				const subtitle = slide.querySelector("p");
-				const buttons = slide.querySelectorAll("a.btn");
-
-				gsap.set([title, subtitle, buttons], { opacity: 0, y: 50 });
-
-				// Animate on Swiper Slide Change
-				const animateSlide = () => {
-					gsap.to(title, {
-						opacity: 1,
-						y: 0,
-						duration: 1,
-						ease: "power2.out",
-						delay: 0.2
-					});
-					gsap.to(subtitle, {
-						opacity: 1,
-						y: 0,
-						duration: 1,
-						ease: "power2.out",
-						delay: 0.4
-					});
-					gsap.to(buttons, {
-						opacity: 1,
-						y: 0,
-						duration: 1,
-						ease: "power2.out",
-						stagger: 0.1,
-						delay: 0.6
-					});
-				};
-
-				if (index === 0) animateSlide(); // Animate first slide on load
-
-				slide.animateIn = animateSlide; // Attach for Swiper
-			});
-		});
 	</script>
 {% endblock %}
